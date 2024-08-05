@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scrollable-container{
+    width: 800px;
+    display: flex;
+    height:250px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
