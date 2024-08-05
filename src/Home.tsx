@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { Button ,Pagination } from 'antd'
 import Login from './Login'
 import PaginationPage from './Pagination'
-import FetchAllProduct from './FetchAllProduct'
+import FetchAllProduct,{Search} from './FetchAllProduct'
+import SearchProduct from './Search'
 
 
 
@@ -11,9 +12,8 @@ function Home() {
 
   const [page,setPage] = useState(1)
   const [pageSize,setPageSize] = useState(10)
-
   const [product,setProduct] = useState([])
-
+  
   const onShowSizeChange = (current, size) => {
     setPageSize(size)
     setPage(current)
@@ -26,19 +26,29 @@ function Home() {
     console.log(response.products);
     setProduct(response.products)
   }
+  
+  const searchProduct = async(keyword) =>{
+   const response = await Search(keyword)
+   console.log(response)
+   setProduct(response.products)
+  }
 
   useEffect(()=>{
   FetchProduct(page,pageSize)
   },[page,pageSize])
       
  
+ useEffect(()=>{
+  searchProduct()
+ },[product])
  
   
 
   return (
     <>
-        
+      
     <Link to ="/Login">เข้าสู่ระบบ</Link>
+    <SearchProduct searchProduct = {searchProduct}/>  
     <PaginationPage product ={product} />
     <div className='flex justify-center my-[20px]'>
     

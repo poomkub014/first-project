@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState} from "react";
 import axios from "axios";
-import { useState } from "react";
 
 const Login = () => {
 const [username,setUsername] = useState('')

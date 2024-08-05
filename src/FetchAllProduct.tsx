@@ -12,37 +12,20 @@ import axios from 'axios'
                         skip: skip
                 }
             })
-            return response.data 
-
-    //     }else if(page == 2){
-    //         const response = await axios.get(`https://dummyjson.com/products`,{
-    //             params:{
-    //                     limit:pageSize,
-    //                     skip: 10
-    //             }
-    //         })
-    //         return response.data 
-    //     }else if(page == 3){
-    //         const response = await axios.get(`https://dummyjson.com/products`,{
-    //             params:{
-    //                     limit:pageSize,
-    //                     skip: 20
-    //             }
-    //         })
-    //         return response.data 
-    //     }else if(page == 4){
-    //         const response = await axios.get(`https://dummyjson.com/products`,{
-    //             params:{
-    //                     limit:pageSize,
-    //                     skip: 30
-    //             }
-    //         })
-    //         return response.data 
-    //     }
-      
-    }
-
-
+            
+            return response.data
+            
+            }
 
 export default FetchAllProduct
 
+       export const Search = async (keyword) =>{
+           
+           const response = await axios.get(`https://dummyjson.com/products`,{
+                params:{
+                        q:keyword
+                }
+            })
+            return response.data      
+            
+       } 
