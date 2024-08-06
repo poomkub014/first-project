@@ -8,11 +8,16 @@ import SearchProduct from './Search'
 
 
 
+
 function Home() {
 
   const [page,setPage] = useState(1)
   const [pageSize,setPageSize] = useState(10)
   const [product,setProduct] = useState([])
+  const [keyword,setKeyword] = useState("")
+  const [total,setTotal] = useState(194)
+  const [query,setQuery] = useState('')
+//  const [currentPage,setCurrentPage] = useState(1)
   
   const onShowSizeChange = (current, size) => {
     setPageSize(size)
@@ -22,25 +27,40 @@ function Home() {
 
 
   const FetchProduct = async (page,pageSize) => {
-    const response =  await FetchAllProduct(page,pageSize)
+    const response =  await FetchAllProduct(page,pageSize,keyword)
     console.log(response.products);
-    setProduct(response.products)
+    setProduct(response.products);
+    setTotal(response.total)
+    
   }
   
-  const searchProduct = async(keyword) =>{
-   const response = await Search(keyword)
-   console.log(response)
-   setProduct(response.products)
+//  const searchProduct = async(keyword) =>{
+//   const response = await Search(keyword)
+//   
+//   setProduct(response.products)
+//   console.log(response)
+//   setKey(keyword)
+//  }
+  
+  const handleOnSubmit = (e) =>{
+   e.preventDefault()
+   setKeyword(query)
+   setPage(1)
   }
-
+  
+  const handleOnChange = (e) => {
+     setQuery(e.target.value)
+    
+  }
+  
+  
   useEffect(()=>{
   FetchProduct(page,pageSize)
-  },[page,pageSize])
+  },[page,pageSize,keyword])
       
  
- useEffect(()=>{
-  searchProduct()
- },[product])
+ 
+
  
   
 
@@ -48,7 +68,11 @@ function Home() {
     <>
       
     <Link to ="/Login">เข้าสู่ระบบ</Link>
-    <SearchProduct searchProduct = {searchProduct}/>  
+    
+     <form onSubmit = {handleOnSubmit}>
+        <input className = 'w-[200px] bg-[red]'  onChange ={handleOnChange}/>
+     </form>
+        
     <PaginationPage product ={product} />
     <div className='flex justify-center my-[20px]'>
     
@@ -56,7 +80,8 @@ function Home() {
    <Pagination
       onChange={onShowSizeChange}
       defaultCurrent={1}
-      total={194}
+      current ={page}
+      total={total}
     />
     </div>
     <Link to ="/detail">Go to detail page</Link>
