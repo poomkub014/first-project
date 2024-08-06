@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
 import Home from './Home.tsx'
 import Login from './Login.tsx'
+import ListProductByCategory from './ListProductByCategory.tsx'
 import './index.css'
 
 import {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "Login",
     element: <Login/>
+  },
+  {
+    path: "ShowProductByCategory",
+    element:<ListProductByCategory/> 
   }
 ]);
 

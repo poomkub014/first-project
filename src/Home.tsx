@@ -5,7 +5,7 @@ import Login from './Login'
 import PaginationPage from './Pagination'
 import FetchAllProduct,{Search} from './FetchAllProduct'
 import SearchProduct from './Search'
-
+import FetchCategories from './FetchCategories'
 
 
 
@@ -17,7 +17,7 @@ function Home() {
   const [keyword,setKeyword] = useState("")
   const [total,setTotal] = useState(194)
   const [query,setQuery] = useState('')
-//  const [currentPage,setCurrentPage] = useState(1)
+
   
   const onShowSizeChange = (current, size) => {
     setPageSize(size)
@@ -27,21 +27,13 @@ function Home() {
 
 
   const FetchProduct = async (page,pageSize) => {
-    const response =  await FetchAllProduct(page,pageSize,keyword)
-    console.log(response.products);
+     const response =  await FetchAllProduct(page,pageSize,keyword)
     setProduct(response.products);
     setTotal(response.total)
     
   }
   
-//  const searchProduct = async(keyword) =>{
-//   const response = await Search(keyword)
-//   
-//   setProduct(response.products)
-//   console.log(response)
-//   setKey(keyword)
-//  }
-  
+
   const handleOnSubmit = (e) =>{
    e.preventDefault()
    setKeyword(query)
@@ -66,12 +58,18 @@ function Home() {
 
   return (
     <>
+    <FetchCategories></FetchCategories>
+      <div className="flex justify-end">
       
-    <Link to ="/Login">เข้าสู่ระบบ</Link>
-    
-     <form onSubmit = {handleOnSubmit}>
-        <input className = 'w-[200px] bg-[red]'  onChange ={handleOnChange}/>
-     </form>
+        <Button className =""><Link to ="/Login">เข้าสู่ระบบ</Link></Button>    
+      
+        <form onSubmit = {handleOnSubmit}>
+     
+            <input className = 'w-[200px] bg-[red]'  onChange ={handleOnChange}/>
+        
+         </form>
+        
+      </div>
         
     <PaginationPage product ={product} />
     <div className='flex justify-center my-[20px]'>
