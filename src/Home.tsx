@@ -6,7 +6,7 @@ import PaginationPage from './Pagination'
 import FetchAllProduct,{Search} from './FetchAllProduct'
 import SearchProduct from './Search'
 import FetchCategories from './FetchCategories'
-
+import ProductDetail from './ProductDetail'
 
 
 function Home() {
@@ -73,8 +73,7 @@ function Home() {
         
     <PaginationPage product ={product} />
     <div className='flex justify-center my-[20px]'>
-    
-   
+
    <Pagination
       onChange={onShowSizeChange}
       defaultCurrent={1}

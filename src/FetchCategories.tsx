@@ -6,8 +6,6 @@ import ListProductByCategory from './ListProductByCategory.tsx'
 const FetchCategories =  () =>{
     const navigate = useNavigate();
     const [category,setCategory] = useState([])
-    const [selectCategory,setSelectCategory] = useState('')
-    const [nameCategory,setNameCategory] = useState('')
     
     const fetchAPICategories = async () =>{
       
@@ -27,16 +25,14 @@ const FetchCategories =  () =>{
     
       
       {category.map((item,index)=>(
-      <div key={index} onClick = {()=>{
-       setNameCategory(item)
-       
+      <div key={index} onClick = {()=>{   
        navigate("/ShowProductByCategory",{state:{keyword:item}})
       }}>
       {item}
       </div>
    
       ))}
-         <ListProductByCategory keyword ={nameCategory}/>
+         
     
     
     </div>

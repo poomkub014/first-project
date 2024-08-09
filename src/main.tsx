@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Home from './Home.tsx'
 import Login from './Login.tsx'
 import ListProductByCategory from './ListProductByCategory.tsx'
+import ProductDetail from './ProductDetail.tsx'
 import './index.css'
 
 import {
@@ -29,6 +30,9 @@ const router = createBrowserRouter([
   {
     path: "ShowProductByCategory",
     element:<ListProductByCategory/> 
+  },{
+    path:"ProductDetail",
+    element:<ProductDetail/>
   }
 ]);
 

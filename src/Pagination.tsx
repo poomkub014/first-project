@@ -1,11 +1,11 @@
 import { Image,Button,Card } from 'antd'
 import { useState } from 'react';
-
+import {useNavigate,Link} from 'react-router-dom'
 
 const PaginationPage = ({product}) => {
-
+  const navigate = useNavigate();
+  const [number,setNumber] = useState(0)
   const { Meta } = Card;
-
   const [cart,setCart] =useState([])
   
   const addToCart = (product) =>{
@@ -24,28 +24,34 @@ const PaginationPage = ({product}) => {
           style={{ width: 240 }}
           cover={<Image alt="Product picture" src={product.thumbnail} />}
         >
+          <div onClick={()=>{
+            navigate("/ProductDetail",{state:{productId:product.id}})
+          }}>
           <Meta title={product.title} description= {`Rating: ${product.rating}`} />
+          </div>
+          
           <br></br>
           <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
           <br />
           <hr></hr>
-          
+
+          <Button  className='mt-[15px] mx-[5px]' onClick={()=>setNumber(number+1)}>Add Number</Button>
           <Button  className='mt-[15px] mx-[5px]' onClick={()=>addToCart(product)}>Add to cart</Button>
           <Button  className='mt-[15px] mx-[5px]'>Buy</Button>
       </Card>
     </div>
   });
 
-    const renderCart = cart.map((item) =>(
-      <div key={item.id} className='flex justify-between items-center p-2 border-b'>
+    const renderCart = cart.map((cart) =>(
+      <div key={cart.id} className='flex justify-between items-center p-2 border-b'>
           <div>
-            <p>{item.title}</p>
-            <p>Price : {item.price}$</p>
+            <p>{cart.title}</p>
+            <p>Price : {cart.price}$</p>
           </div>
-          <Button onClick={()=>removeFromCart(item.id)}>Remove</Button>
+          <Button onClick={()=>removeFromCart(cart.id)}>Remove</Button>
       </div>
     ));
-
+console.log(number)
   
   return (
     <div>
