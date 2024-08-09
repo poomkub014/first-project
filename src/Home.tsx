@@ -4,11 +4,9 @@ import { Button ,Pagination,Carousel } from 'antd'
 import Login from './Login'
 import PaginationPage from './Pagination'
 import FetchAllProduct,{Search} from './FetchAllProduct'
-import SearchProduct from './Search'
+import Cart from './Cart'
 import FetchCategories from './FetchCategories'
-import ProductDetail from './ProductDetail'
-import sky1 from './image/sky1.jpg'
-import sky2 from './image/sky2.jpg'
+
 
 
 function Home() {
@@ -68,7 +66,7 @@ function Home() {
       <div className="flex justify-end">
       
         <Button className =""><Link to ="/Login">เข้าสู่ระบบ</Link></Button>    
-      
+        <Button className =""><Link to ="/Cart">ตะกร้า</Link></Button>   
         <form onSubmit = {handleOnSubmit}>
      
             <input className = 'w-[200px] bg-[red]'  onChange ={handleOnChange}/>

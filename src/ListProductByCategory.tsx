@@ -1,10 +1,12 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useContext} from 'react'
 import axios from 'axios'
-import {useLocation,useNavigate} from 'react-router-dom'
+import {useLocation,useNavigate,Link} from 'react-router-dom'
 import { Image,Button,Card,Pagination } from 'antd'
 import ProductDetail from './ProductDetail'
+import { CartContext } from './useContext/useContext'
 
 const ListProductByCategory = () => {
+  const {addToCart} = useContext(CartContext);
   const navigate = useNavigate();
   const { Meta } = Card;
   const location = useLocation();
@@ -62,7 +64,8 @@ const ListProductByCategory = () => {
   
   return (
   <div>
-      {keyword}
+     
+      <Button className =""><Link to ="/Cart">ตะกร้า</Link></Button>   
       <div className='px-[250px] grid  grid-cols-2 gap-4 justify-items-center'>
           {renderProduct}
         </div>

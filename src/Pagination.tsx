@@ -1,20 +1,18 @@
 import { Image,Button,Card,Carousel } from 'antd'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
+import { CartContext } from './useContext/useContext';
+import Cart from './Cart';
 
 const PaginationPage = ({product}) => {
+const {addToCart} = useContext(CartContext);
+
   const navigate = useNavigate();
   const [number,setNumber] = useState(0)
   const { Meta } = Card;
-  const [cart,setCart] =useState([])
-  
-  const addToCart = (product) =>{
-    setCart([...cart,product])
-  };
 
-  const removeFromCart = (productId) =>{
-    setCart(cart.filter(item => item.id !== productId));
-  };
+
+ 
 
 
   const contentStyle: React.CSSProperties = {
@@ -50,41 +48,29 @@ const PaginationPage = ({product}) => {
     </div>
   });
 
-    const renderCart = cart.map((cart) =>(
-      <div key={cart.id} className='flex justify-between items-center p-2 border-b'>
-          <div>
-            <p>{cart.title}</p>
-            <p>Price : {cart.price}$</p>
-          </div>
-          <Button onClick={()=>removeFromCart(cart.id)}>Remove</Button>
-      </div>
-    ));
+ 
 console.log(number)
 
 
   
   return (
     <div>
-         <Carousel arrows infinite={false}>
-{product.map((product)=>(
-  <div key={product.id}>
-  <h3 style={contentStyle}><Image src={product.thumbnail} width={100}></Image>
-  <h1>{product.title}</h1>
-  </h3>
-  
-  </div>
+      <Carousel arrows infinite={false}>
+        {product.map((product)=>(
+          <div key={product.id}>
+            <h3 style={contentStyle}><Image src={product.thumbnail} width={100}/>
+            <h1>{product.title}</h1>
+            </h3>
+          </div>
 ))}
 </Carousel>   
         <div className='px-[250px] grid  grid-cols-2 gap-4 justify-items-center'>
           {renderProduct}
         </div>
 
-        <div className='border p-4'>
-          <h2 className='text-xl'>Cart</h2>
-          {cart.length > 0 ? renderCart :<p>No item in cart</p>}
+         
         </div>
-
-    </div>
+   
      
   )
 }
