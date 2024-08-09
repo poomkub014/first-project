@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button ,Pagination } from 'antd'
+import { Button ,Pagination,Carousel } from 'antd'
 import Login from './Login'
 import PaginationPage from './Pagination'
 import FetchAllProduct,{Search} from './FetchAllProduct'
 import SearchProduct from './Search'
 import FetchCategories from './FetchCategories'
 import ProductDetail from './ProductDetail'
+import sky1 from './image/sky1.jpg'
+import sky2 from './image/sky2.jpg'
 
 
 function Home() {
@@ -58,6 +60,10 @@ function Home() {
 
   return (
     <>
+
+
+
+
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
       
