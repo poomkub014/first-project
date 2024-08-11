@@ -15,7 +15,7 @@ const Cart = () => {
     <div key={item.id}>{item.title} - {item.quantity}
      <button onClick={()=>increaseQuantity(item.id)}>+</button>
      <button onClick={()=>decreaseQuantity(item.id)}>-</button>
-   <button onClick={()=>removeFromCart(item.id)}>Remove</button>
+     <button onClick={()=>removeFromCart(item.id)}>Remove</button>
     </div>
 
   ))}
