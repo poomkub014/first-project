@@ -1,8 +1,13 @@
 import React,{useState,useEffect, useContext} from 'react'
 import axios from 'axios'
 import {useLocation,useNavigate,Link} from 'react-router-dom'
+<<<<<<< Updated upstream
 import { Image,Button,Card,Pagination,Rate } from 'antd'
 import ProductDetail from './ProductDetail'
+=======
+import { Image,Button,Card,Pagination } from 'antd'
+
+>>>>>>> Stashed changes
 import { CartContext } from './useContext/useContext'
 
 const ListProductByCategory = () => {

@@ -2,7 +2,7 @@ import { Image,Button,Card,Carousel,Rate} from 'antd'
 import { useContext, useState } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import { CartContext } from './useContext/useContext';
-import Cart from './Cart';
+
 
 const PaginationPage = ({product}) => {
 const {addToCart} = useContext(CartContext);

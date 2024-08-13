@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {useLocation,useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { Image,Button,Card } from 'antd'
+import { CartContext } from './useContext/useContext';
 
 
 const ProductDetail = () => {
@@ -9,7 +10,7 @@ const ProductDetail = () => {
     const location = useLocation();
     const {productId} = location.state || {};
     const [product,setProduct] = useState([])
-    const [cart,setCart] = useState([])
+    const {addToCart} = useContext(CartContext);
  
 
     const FetchDetailProduct = async (productId) =>{
@@ -18,28 +19,14 @@ const ProductDetail = () => {
         console.log(response.data);   
     }
 
-    const addToCart = (product) =>{
-    setCart([...cart,product])
-    }
-
-    const removeFromCart = (productId) =>{
-    setCart(cart.filter(item => item.id !== productId));
-    };
     
-      
+
+   
     useEffect(()=>{
         FetchDetailProduct(productId)
     },[])
 
-    const renderCart = cart.map((cart) =>(
-        <div key={cart.id} className='flex justify-between items-center p-2 border-b'>
-            <div>
-              <p>{cart.title}</p>
-              <p>Price : {cart.price}$</p>
-            </div>
-            <Button onClick={()=>removeFromCart(cart.id)}>Remove</Button>
-        </div>
-      ));
+
   return (
 
     <div>ProductDetail Result  {productId}
@@ -58,10 +45,6 @@ const ProductDetail = () => {
               <Button  className='mt-[15px] mx-[5px]'>Buy</Button>
           </Card>
 
-          <div className='border p-4'>
-          <h2 className='text-xl'>Cart</h2>
-          {cart.length > 0 ? renderCart :<p>No item in cart</p>}
-        </div>
           
     </div>
   )
