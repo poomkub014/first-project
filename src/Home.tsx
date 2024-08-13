@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button ,Pagination,Carousel } from 'antd'
+import { Button ,Pagination,Carousel,Rate } from 'antd'
 import Login from './Login'
 import PaginationPage from './Pagination'
 import FetchAllProduct,{Search} from './FetchAllProduct'

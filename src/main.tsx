@@ -4,8 +4,8 @@ import Home from './Home.tsx'
 import Login from './Login.tsx'
 import ListProductByCategory from './ListProductByCategory.tsx'
 import ProductDetail from './ProductDetail.tsx'
-import Prop2 from './prop2.tsx'
 import Cart from './Cart.tsx'
+import ConfirmOrder from './ConfirmOrder.tsx'
 import './index.css'
 
 import {
@@ -35,15 +35,18 @@ const router = createBrowserRouter([
   {
     path: "ShowProductByCategory",
     element:<ListProductByCategory/> 
-  },{
+  },
+  {
     path:"ProductDetail",
     element:<ProductDetail/>
-  },{
-    path:"prop2",
-    element:<Prop2/>
-  },{
+  },
+  {
     path:"Cart",
     element: <Cart/>
+  },
+  {
+    path:"ConfirmOrderPage",
+    element:<ConfirmOrder/>
   }
 
 ]);

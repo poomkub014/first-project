@@ -1,7 +1,7 @@
 import React,{useState,useEffect, useContext} from 'react'
 import axios from 'axios'
 import {useLocation,useNavigate,Link} from 'react-router-dom'
-import { Image,Button,Card,Pagination } from 'antd'
+import { Image,Button,Card,Pagination,Rate } from 'antd'
 import ProductDetail from './ProductDetail'
 import { CartContext } from './useContext/useContext'
 
@@ -49,8 +49,10 @@ const ListProductByCategory = () => {
         navigate("/ProductDetail",{state:{productId:product.id}})
       }}>
         
-           <Meta title={product.title} description= {`Rating: ${product.rating}`}  />
+           <Meta title={product.title}/>
            </div>
+           <br/>
+           Rating : <Rate disable defaultValue={product.rating}/>
             <br></br>
             <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
             <br />

@@ -1,4 +1,4 @@
-import { Image,Button,Card,Carousel } from 'antd'
+import { Image,Button,Card,Carousel,Rate} from 'antd'
 import { useContext, useState } from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import { CartContext } from './useContext/useContext';
@@ -33,10 +33,12 @@ const {addToCart} = useContext(CartContext);
           <div onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product.id}})
           }}>
-          <Meta title={product.title} description= {`Rating: ${product.rating}`} />
+          <Meta title={product.title}/>
           </div>
+          <br/>
+          Rating : <Rate disable defaultValue={product.rating}/>
           
-          <br></br>
+          <br/>
           <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
           <br />
           <hr></hr>
