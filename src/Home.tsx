@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button ,Pagination,Carousel,Rate } from 'antd'
-import Login from './Login'
+import { Button ,Pagination } from 'antd'
 import PaginationPage from './Pagination'
-import FetchAllProduct,{Search} from './FetchAllProduct'
-import Cart from './Cart'
+import FetchAllProduct from './FetchAllProduct'
+
 import FetchCategories from './FetchCategories'
 
 
@@ -58,10 +57,6 @@ function Home() {
 
   return (
     <>
-
-
-
-
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
       

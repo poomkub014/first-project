@@ -1,6 +1,6 @@
 import { Image,Button,Card,Carousel,Rate} from 'antd'
 import { useContext, useState } from 'react';
-import {useNavigate,Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { CartContext } from './useContext/useContext';
 
 
@@ -36,7 +36,7 @@ const {addToCart} = useContext(CartContext);
           <Meta title={product.title}/>
           </div>
           <br/>
-          Rating : <Rate disable defaultValue={product.rating}/>
+          Rating : <Rate disabled defaultValue={product.rating}/>
           
           <br/>
           <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
