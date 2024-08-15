@@ -14,7 +14,7 @@ import {
  
 } from "react-router-dom";
 import { CartProvider } from './useContext/useContext.tsx'
-
+import {UserProvider} from './useContext/user.tsx'
 
 const router = createBrowserRouter([
 
@@ -55,8 +55,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 
   <React.StrictMode>
+    
     <CartProvider>
+    <UserProvider>
     <RouterProvider router={router} />
+    </UserProvider>
     </CartProvider>
+    
   </React.StrictMode>,
 )

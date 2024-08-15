@@ -10,10 +10,13 @@ const handleOnSunmit = (e:any) =>{
     e.preventDefault()
     console.log(`this is username : ${username}`);
     console.log(`this is password : ${password}`); 
-    if (username && password) {
-        const login = async () => {
+    console.log( `this is token : ${token}`);
+     
+      
+    const login = async () => {
+        if(username && password){
+         try{
             const response = await axios.post(`https://dummyjson.com/user/login`,{   
-              
               
                     username:username,
                     password:password        
@@ -23,15 +26,23 @@ const handleOnSunmit = (e:any) =>{
               }
             })      
             setToken(response.data.token);  
-            console.log(response);
-            
-                  
-    }
-    login()
+            console.log(response.data);
+             alert('Log in success')
+    }catch(error){
+     alert('Log in fail',error)
+    }                      
+      
+        
+}else{
+       alert('enter username or password')
+      }
+      
+}
 
-    
+login()
 }
-}
+
+
 
    
   return (
