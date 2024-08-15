@@ -1,9 +1,8 @@
 import { useEffect, useState ,useContext} from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import { Button ,Pagination } from 'antd'
 import PaginationPage from './Pagination'
 import FetchAllProduct from './FetchAllProduct'
-
 import FetchCategories from './FetchCategories'
 import UserContext from './useContext/user.tsx'
 
@@ -16,9 +15,10 @@ function Home() {
   const [keyword,setKeyword] = useState("")
   const [total,setTotal] = useState(194)
   const [query,setQuery] = useState('')
-  const {user,setUser} = useContext(UserContext);
-
-  
+  const {user,updateUser,isLoggedIn,handleLogout} = useContext(UserContext);
+  const [login,setLogin] = useState(false)
+  const navigate = useNavigate()
+ 
   const onShowSizeChange = (current, size) => {
     setPageSize(size)
     setPage(current)
@@ -61,7 +61,14 @@ function Home() {
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
         {user.username}
-        <Button className =""><Link to ="/Login">เข้าสู่ระบบ</Link></Button>    
+        
+        {isLoggedIn ? <p onClick={()=>{   
+            window.location.reload()
+            updateUser({username:'guest'})
+            handleLogout()        
+          }}>Logout</p> : <Button className =""><Link to ="/Login">เข้าสู่ระบบ</Link></Button> }
+     
+         
         <Button className =""><Link to ="/Cart">ตะกร้า</Link></Button>   
         <form onSubmit = {handleOnSubmit}>
      

@@ -1,10 +1,14 @@
-import React, { useEffect,useState} from "react";
+import React, { useState,useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import UserContext from "./useContext/user";
 
 const Login = () => {
+const {updateUser,handleLogin} = useContext(UserContext);
 const [username,setUsername] = useState('')
 const [password,setPassword] = useState('')
 const [token,setToken] = useState('')
+const navigate = useNavigate();
 
 const handleOnSunmit = (e:any) =>{
     e.preventDefault()
@@ -17,7 +21,6 @@ const handleOnSunmit = (e:any) =>{
         if(username && password){
          try{
             const response = await axios.post(`https://dummyjson.com/user/login`,{   
-              
                     username:username,
                     password:password        
             },{
@@ -28,8 +31,12 @@ const handleOnSunmit = (e:any) =>{
             setToken(response.data.token);  
             console.log(response.data);
              alert('Log in success')
+             updateUser({username:response.data.username})   
+              handleLogin()
+             navigate("/")
     }catch(error){
      alert('Log in fail',error)
+   
     }                      
       
         
