@@ -1,4 +1,4 @@
-import { useEffect, useState ,useContext} from 'react'
+ import { useEffect, useState ,useContext} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { Button ,Pagination } from 'antd'
 import PaginationPage from './Pagination'
@@ -58,12 +58,12 @@ function Home() {
     <>
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
-        {user.username}
+        
         
         {isLoggedIn ? <Button onClick={()=>{   
-            window.location.reload()
-            updateUser({username:'Guest'})
-            handleLogin(false)
+            window.location.reload();
+            updateUser({firstname:'Guest'});
+            handleLogin(false);
           }}>Logout</Button> : <Button><Link to ="/Login">เข้าสู่ระบบ</Link></Button> }
      
          

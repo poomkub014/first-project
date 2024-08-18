@@ -1,10 +1,10 @@
-import React, { useState,useContext} from "react";
+import React, { useState,useContext,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserContext from "./useContext/user";
 
 const Login = () => {
-const {updateUser,handleLogin} = useContext(UserContext);
+const {updateUser,handleLogin,user,userId,setUserId} = useContext(UserContext);
 const [username,setUsername] = useState('')
 const [password,setPassword] = useState('')
 
@@ -28,12 +28,9 @@ const handleOnSunmit = (e:any) =>{
                 'Content-Type':'application/json'
               }
             })      
-          
-            console.log(response.data);
-             alert('Log in success')
-             updateUser({username:response.data.username})   
-             handleLogin(true)
-             navigate("/")
+             setUserId(response.data.id)
+             
+             
     }catch(error){
      alert('Log in fail',error)
    
@@ -47,13 +44,37 @@ const handleOnSunmit = (e:any) =>{
 }
 
 login()
+
+
+
 }
+
+
+  useEffect(()=>{
+   const fetchUser = async (id) =>{
+             if(userId){
+                const response = await axios.get(`https://dummyjson.com/users/${id}`)
+   
+                ///updateUser({
+                //firstname:response.data.firstName
+                //})
+                
+                
+                handleLogin(true)
+                alert('Log in success')
+                navigate("/")
+             }
+  }
+  fetchUser(userId)
+  },[userId])
+
 
 
 
    
   return (
     <div className="flex justify-center">
+    
         <form onSubmit={handleOnSunmit}>
           <div className="bg-slate-50 rounded flex flex-col p-[20px] ">
                 <span className="my-[10px]">Username</span>

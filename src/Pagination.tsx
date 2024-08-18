@@ -8,7 +8,6 @@ const PaginationPage = ({product}) => {
 const {addToCart} = useContext(CartContext);
 
   const navigate = useNavigate();
-  const [number,setNumber] = useState(0)
   const { Meta } = Card;
 
 
@@ -42,8 +41,6 @@ const {addToCart} = useContext(CartContext);
           <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
           <br />
           <hr></hr>
-
-          <Button  className='mt-[15px] mx-[5px]' onClick={()=>setNumber(number+1)}>Add Number</Button>
           <Button  className='mt-[15px] mx-[5px]' onClick={()=>addToCart(product)}>Add to cart</Button>
           <Button  className='mt-[15px] mx-[5px]'>Buy</Button>
       </Card>
@@ -51,7 +48,7 @@ const {addToCart} = useContext(CartContext);
   });
 
  
-console.log(number)
+
 
 
   
