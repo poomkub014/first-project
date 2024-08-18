@@ -1,13 +1,18 @@
 import React, { useContext } from 'react'
-import { Button } from 'antd'
 import { CartContext } from './useContext/useContext'
-import {Link} from 'react-router-dom'
-import ConfirmOrder from './ConfirmOrder'
+import {useNavigate,Link} from 'react-router-dom'
+import UserContext from './useContext/user'
+import { Button } from 'antd'
+
 
 const Cart = () => {
 
- const {cart,removeFromCart,increaseQuantity,decreaseQuantity} = useContext(CartContext);
-
+ const {cart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct} = useContext(CartContext);
+ const {isLoggedIn} = useContext(UserContext);
+ const navigate = useNavigate()
+ const handleOnClick = () =>{
+  {isLoggedIn ? navigate("/ConfirmOrderPage") : navigate("/Login")}
+ }
 
   return (
     <div>
@@ -22,8 +27,9 @@ const Cart = () => {
   ))}
      
      {cart.length > 0 ? <div>
-      <Link to ="/ConfirmOrderPage">Confirm</Link>
+      <Button onClick={handleOnClick}>Confirm</Button>
       <Link to ="/">Back to Shopping</Link>  
+      <Button onClick={clearProduct}>Clear all product</Button>
      </div>               
                 
       : <p>No item in cart</p>}

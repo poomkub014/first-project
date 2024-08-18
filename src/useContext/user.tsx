@@ -26,19 +26,16 @@ const updateUser = (newUser) =>{
     localStorage.setItem('user',JSON.stringify(newUser));
 };
 
-const handleLogin = () =>{
-    setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn',JSON.stringify(true))
+const handleLogin = (status) =>{
+    setIsLoggedIn(status);
+    localStorage.setItem('isLoggedIn',JSON.stringify(status))
 }
 
-const handleLogout = () =>{
-   setIsLoggedIn(false)
-   localStorage.setItem('isLoggedIn',JSON.stringify(false))
-}
+
 
 
    return (
-       <UserContext.Provider value ={{user,updateUser,handleLogout,handleLogin,isLoggedIn}}>{children}</UserContext.Provider>
+       <UserContext.Provider value ={{user,updateUser,handleLogin,isLoggedIn}}>{children}</UserContext.Provider>
    );
 };
 

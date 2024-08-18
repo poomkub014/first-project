@@ -20,7 +20,7 @@ export const CartProvider = ({children}) => {
       if(existingProduct){
         
           setCart(cart.map(item => item.id === product.id
-            ?{...item,quantity:item.quantity+1}
+            ?{ ...item , quantity : item.quantity+1 }
         :item
           ));
       }else{
@@ -46,7 +46,10 @@ export const CartProvider = ({children}) => {
       ));
     };
 
+    const clearProduct = () =>{
+      setCart([])
+    }
     return (
-        <CartContext.Provider value ={{cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity}}>{children}</CartContext.Provider>
+        <CartContext.Provider value ={{cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct}}>{children}</CartContext.Provider>
     );
 };

@@ -15,9 +15,7 @@ function Home() {
   const [keyword,setKeyword] = useState("")
   const [total,setTotal] = useState(194)
   const [query,setQuery] = useState('')
-  const {user,updateUser,isLoggedIn,handleLogout} = useContext(UserContext);
-  const [login,setLogin] = useState(false)
-  const navigate = useNavigate()
+  const {user,updateUser,isLoggedIn,handleLogin} = useContext(UserContext);
  
   const onShowSizeChange = (current, size) => {
     setPageSize(size)
@@ -62,11 +60,11 @@ function Home() {
       <div className="flex justify-end">
         {user.username}
         
-        {isLoggedIn ? <p onClick={()=>{   
+        {isLoggedIn ? <Button onClick={()=>{   
             window.location.reload()
-            updateUser({username:'guest'})
-            handleLogout()        
-          }}>Logout</p> : <Button className =""><Link to ="/Login">เข้าสู่ระบบ</Link></Button> }
+            updateUser({username:'Guest'})
+            handleLogin(false)
+          }}>Logout</Button> : <Button><Link to ="/Login">เข้าสู่ระบบ</Link></Button> }
      
          
         <Button className =""><Link to ="/Cart">ตะกร้า</Link></Button>   
@@ -89,7 +87,7 @@ function Home() {
     />
     </div>
     <Link to ="/detail">Go to detail page</Link>
-    
+   
     </>
   )
 }

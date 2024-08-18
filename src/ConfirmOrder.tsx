@@ -1,13 +1,17 @@
 import React,{useContext} from "react"
 import {CartContext} from "./useContext/useContext"
+import UserContext from "./useContext/user";
 
 const ConfirmOrder = () => {
  const {cart} = useContext(CartContext);
+ const {user} = useContext(UserContext)
+ 
  const sumPrice = cart.reduce((acc,curr) => acc+(curr.price*curr.quantity),0);
  
   return (
    <div>This is confirm order page
    
+   user:{user.username}
    {cart.map((item)=>(
     <div>Title : {item.title} Price : {item.price}$ Quantity : {item.quantity}</div>
    ))}
@@ -18,4 +22,4 @@ const ConfirmOrder = () => {
    
   )
 }
- export default ConfirmOrder
+ export default ConfirmOrder 

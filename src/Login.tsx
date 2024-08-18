@@ -7,14 +7,14 @@ const Login = () => {
 const {updateUser,handleLogin} = useContext(UserContext);
 const [username,setUsername] = useState('')
 const [password,setPassword] = useState('')
-const [token,setToken] = useState('')
+
 const navigate = useNavigate();
 
 const handleOnSunmit = (e:any) =>{
     e.preventDefault()
     console.log(`this is username : ${username}`);
     console.log(`this is password : ${password}`); 
-    console.log( `this is token : ${token}`);
+  
      
       
     const login = async () => {
@@ -28,11 +28,11 @@ const handleOnSunmit = (e:any) =>{
                 'Content-Type':'application/json'
               }
             })      
-            setToken(response.data.token);  
+          
             console.log(response.data);
              alert('Log in success')
              updateUser({username:response.data.username})   
-              handleLogin()
+             handleLogin(true)
              navigate("/")
     }catch(error){
      alert('Log in fail',error)
