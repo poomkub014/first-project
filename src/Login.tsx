@@ -1,10 +1,10 @@
-import React, { useState,useContext,useEffect} from "react";
+import React, { useState,useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserContext from "./useContext/user";
 
 const Login = () => {
-const {updateUser,handleLogin,user,userId,setUserId} = useContext(UserContext);
+const {updateUser,handleLogin,setUserId,userId} = useContext(UserContext);
 const [username,setUsername] = useState('')
 const [password,setPassword] = useState('')
 
@@ -28,9 +28,11 @@ const handleOnSunmit = (e:any) =>{
                 'Content-Type':'application/json'
               }
             })      
-             setUserId(response.data.id)
+          
+            console.log(response.data);
+            setUserId(response.data.id)
              
-             
+
     }catch(error){
      alert('Log in fail',error)
    
@@ -44,37 +46,31 @@ const handleOnSunmit = (e:any) =>{
 }
 
 login()
-
-
-
 }
 
-
-  useEffect(()=>{
-   const fetchUser = async (id) =>{
-             if(userId){
-                const response = await axios.get(`https://dummyjson.com/users/${id}`)
-   
-                ///updateUser({
-                //firstname:response.data.firstName
-                //})
-                
-                
-                handleLogin(true)
-                alert('Log in success')
-                navigate("/")
-             }
+useEffect(()=>{
+  const fetchUser = async (id) =>{
+    const response = await axios.get (`https://dummyjson.com/users/${id}`)  
+             handleLogin(true)
+             alert('Log in success')
+             navigate("/")
+    console.log(response.data.address.address)
+    updateUser({firstName: response.data.firstName, 
+      lastName:response.data.lastName, 
+      address:response.data.address.address,
+      city:response.data.address.city,
+      state:response.data.address.state,
+      postalCode:response.data.address.postalCode,
+      phone:response.data.phone
+     })
   }
   fetchUser(userId)
-  },[userId])
-
-
+},[userId])
 
 
    
   return (
     <div className="flex justify-center">
-    
         <form onSubmit={handleOnSunmit}>
           <div className="bg-slate-50 rounded flex flex-col p-[20px] ">
                 <span className="my-[10px]">Username</span>

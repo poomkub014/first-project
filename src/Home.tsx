@@ -47,8 +47,10 @@ function Home() {
   useEffect(()=>{
   FetchProduct(page,pageSize)
   },[page,pageSize,keyword])
-      
- 
+     
+  
+ console.log(user.firstName) 
+ console.log(user.lastName)
  
 
  
@@ -58,11 +60,14 @@ function Home() {
     <>
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
+      {user.firstName}  {user.lastName} {user.address} {user.city} {user.state} {user.postalCode} {user.phone}
+
         
-        
+       
+      
         {isLoggedIn ? <Button onClick={()=>{   
             window.location.reload();
-            updateUser({firstname:'Guest'});
+            updateUser({firstName:'Guest'});
             handleLogin(false);
           }}>Logout</Button> : <Button><Link to ="/Login">เข้าสู่ระบบ</Link></Button> }
      

@@ -1,5 +1,5 @@
 import { Image,Button,Card,Carousel,Rate} from 'antd'
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { CartContext } from './useContext/useContext';
 
