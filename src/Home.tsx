@@ -48,23 +48,11 @@ function Home() {
   FetchProduct(page,pageSize)
   },[page,pageSize,keyword])
      
-  
- console.log(user.firstName) 
- console.log(user.lastName)
- 
-
- 
-  
-
   return (
     <>
     <FetchCategories></FetchCategories>
       <div className="flex justify-end">
-      {user.firstName}  {user.lastName} {user.address} {user.city} {user.state} {user.postalCode} {user.phone}
-
-        
-       
-      
+      {user.firstName}  {user.lastName} 
         {isLoggedIn ? <Button onClick={()=>{   
             window.location.reload();
             updateUser({firstName:'Guest'});
@@ -91,8 +79,7 @@ function Home() {
       total={total}
     />
     </div>
-    <Link to ="/detail">Go to detail page</Link>
-   
+    <Link to ="/detail">Go to detail page</Link>   
     </>
   )
 }

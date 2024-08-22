@@ -11,7 +11,7 @@ const Cart = () => {
  const {isLoggedIn} = useContext(UserContext);
  const navigate = useNavigate()
  const handleOnClick = () =>{
-  {isLoggedIn ? navigate("/ConfirmOrderPage") : navigate("/Login")}
+  isLoggedIn ? navigate("/ConfirmOrderPage") : navigate("/Login")
  }
 
   return (

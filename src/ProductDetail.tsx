@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import {useLocation,useNavigate} from 'react-router-dom'
+import {useLocation,Link,useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { Image,Button,Card } from 'antd'
 import { CartContext } from './useContext/useContext';
 
 
+
 const ProductDetail = () => {
     const { Meta } = Card;
+    const navigate = useNavigate();
     const location = useLocation();
     const {productId} = location.state || {};
     const [product,setProduct] = useState([])
@@ -29,7 +31,8 @@ const ProductDetail = () => {
 
   return (
 
-    <div>ProductDetail Result  {productId}
+    <div>ProductDetail Result <Button className =""><Link to ="/Cart">ตะกร้า</Link></Button> 
+    
     <Card
               hoverable
               style={{ width: 240 }}
@@ -42,7 +45,7 @@ const ProductDetail = () => {
               <hr></hr>
               
               <Button   className='mt-[15px] mx-[5px]' onClick={()=>addToCart(product)}>Add to cart</Button>
-              <Button  className='mt-[15px] mx-[5px]'>Buy</Button>
+              <Button  className='mt-[15px] mx-[5px]' onClick={()=> navigate("/Buypage",{state:{productId:product.id,rating:product.rating}})}>Buy</Button>
           </Card>
 
           

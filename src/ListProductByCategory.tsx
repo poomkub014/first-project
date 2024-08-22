@@ -58,7 +58,7 @@ const ListProductByCategory = () => {
             <hr></hr>
             
             <Button   className='mt-[15px] mx-[5px]' onClick={()=>addToCart(product)}>Add to cart</Button>
-            <Button  className='mt-[15px] mx-[5px]'>Buy</Button>
+            <Button  className='mt-[15px] mx-[5px]' onClick={()=> navigate("/Buypage",{state:{productId:product.id,rating:product.rating}})}>Buy</Button>
         </Card>
       </div>
     });

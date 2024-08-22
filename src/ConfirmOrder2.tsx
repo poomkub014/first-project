@@ -4,17 +4,13 @@ import UserContext from "./useContext/user";
 import { Button } from "antd";
 import { Link,useLocation } from "react-router-dom";
 
-const ConfirmOrder = () => {
- const {cart,setCart} = useContext(CartContext);
- const {user} = useContext(UserContext)
+const ConfirmOrder2 = () => {
+ //const {cart} = useContext(CartContext);
+ const {user} = useContext(UserContext);
  const location = useLocation();
  const {productTitle,price,quantity} = location.state || {};
  
 
-   const sumPrice = cart.reduce((acc,curr) => acc+(curr.price*curr.quantity),0);
-
-  
- 
   return (
    <div>
     
@@ -25,19 +21,19 @@ const ConfirmOrder = () => {
         Address : {user.address}  {user.city} {user.state} {user.postalCode} <br/>
         Phone : {user.phone}</p>
    </div>
-   
- 
-   { cart.map((item)=>(
-    <div key={item.id}>Title : {item.title} Price : {item.price}$ Quantity : {item.quantity}</div>
-   ))}
-   
 
-   {cart.length > 0 ? ` Total price : ${Math.round(sumPrice * 100)/100}$ ` : `Total price ${price*quantity}`}
+     <div>
+      <p>Title : {productTitle} </p>
+      <p>Price : {price}$</p>
+      <p>Quantity : {quantity}</p>
+      </div>
+
+   Total price {price*quantity}$
   
  
  
    <div>
-      <Button onClick={()=> setCart([])}><Link to = "/FinalPage">Confirm</Link></Button>
+      <Button><Link to = "/FinalPage">Confirm</Link></Button>
       <Link to ="/">Back to home page</Link>
       
    </div>
@@ -47,4 +43,4 @@ const ConfirmOrder = () => {
    
   )
 }
- export default ConfirmOrder 
+ export default ConfirmOrder2 

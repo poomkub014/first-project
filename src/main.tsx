@@ -7,6 +7,9 @@ import ProductDetail from './ProductDetail.tsx'
 import Cart from './Cart.tsx'
 import ConfirmOrder from './ConfirmOrder.tsx'
 import './index.css'
+import FinalPage from './FinalPage.tsx'
+import Buypage from './Buypage.tsx'
+import ConfirmOrder2 from './ConfirmOrder2.tsx'
 
 import {
   createBrowserRouter,
@@ -47,6 +50,15 @@ const router = createBrowserRouter([
   {
     path:"ConfirmOrderPage",
     element:<ConfirmOrder/>
+  },{
+    path:"FinalPage",
+    element:<FinalPage/>
+  },{
+    path:"Buypage",
+    element:<Buypage/>
+  },{
+    path:"ConfirmOrderPage2",
+    element:<ConfirmOrder2/>
   }
 
 ]);
