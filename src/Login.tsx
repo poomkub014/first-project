@@ -11,11 +11,7 @@ const [password,setPassword] = useState('')
 const navigate = useNavigate();
 
 const handleOnSunmit = (e:any) =>{
-    e.preventDefault()
-    console.log(`this is username : ${username}`);
-    console.log(`this is password : ${password}`); 
-  
-     
+    e.preventDefault()   
       
     const login = async () => {
         if(username && password){
@@ -78,8 +74,14 @@ useEffect(()=>{
                 <span className="my-[10px]">Password</span>
                 <input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder="Enter Password"></input>
                 <button  className="my-[10px] bg-[red]">เข้าสู่ระบบ</button>
+                <div className="flex justify-end">
+
+                <p  className='text-sky-500 cursor-pointer' onClick={()=>{navigate("/CreateAccount")}}>สมัครสมาชิก</p>
+                </div>
+                
           </div>
         </form>
+        
     </div>
   )
 }

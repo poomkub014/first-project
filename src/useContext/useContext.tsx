@@ -12,6 +12,7 @@ export const CartProvider = ({children}) => {
       localStorage.setItem('cart', JSON.stringify(cart));
     },[cart])
 
+    const [keyword,setKeyword] = useState('')
 
     const addToCart = (product) =>{
 
@@ -50,6 +51,6 @@ export const CartProvider = ({children}) => {
       setCart([])
     }
     return (
-        <CartContext.Provider value ={{cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct,setCart}}>{children}</CartContext.Provider>
+        <CartContext.Provider value ={{cart,addToCart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct,setCart,keyword,setKeyword}}>{children}</CartContext.Provider>
     );
 };

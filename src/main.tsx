@@ -10,6 +10,8 @@ import './index.css'
 import FinalPage from './FinalPage.tsx'
 import Buypage from './Buypage.tsx'
 import ConfirmOrder2 from './ConfirmOrder2.tsx'
+import CreateAccount from './CreateAccount.tsx'
+import "bootstrap/dist/css/bootstrap.min.css"
 
 import {
   createBrowserRouter,
@@ -25,11 +27,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home/> 
     
-  },
-
-  {
-    path: "detail",
-    element: <div>this is detail page</div> 
   },
   {
     path: "Login",
@@ -50,15 +47,22 @@ const router = createBrowserRouter([
   {
     path:"ConfirmOrderPage",
     element:<ConfirmOrder/>
-  },{
+  },
+  {
     path:"FinalPage",
     element:<FinalPage/>
-  },{
+  },
+  {
     path:"Buypage",
     element:<Buypage/>
-  },{
+  },
+  {
     path:"ConfirmOrderPage2",
     element:<ConfirmOrder2/>
+  },
+  {
+    path:"CreateAccount",
+    element:<CreateAccount/>
   }
 
 ]);

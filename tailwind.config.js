@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        'carousel-background':'rgba(156, 163, 175,0.5)',
+      }
+    },
   },
   plugins: [],
 }

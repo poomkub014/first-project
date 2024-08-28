@@ -51,9 +51,12 @@ const ListProductByCategory = () => {
            <Meta title={product.title}/>
            </div>
            <br/>
-           Rating : <Rate disable defaultValue={product.rating}/>
+           Rating : <Rate disabled allowHalf defaultValue={product.rating}/>
             <br></br>
             <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
+            <div  className='flex justify-end' ><p  onClick={()=>{
+            navigate("/ProductDetail",{state:{productId:product.id}})
+          }}  className='text-sky-500 cursor-pointer'>View detail</p> </div>
             <br />
             <hr></hr>
             
