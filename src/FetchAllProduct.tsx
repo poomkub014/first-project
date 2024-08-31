@@ -1,6 +1,4 @@
 import axios from 'axios'
-
-
     const FetchAllProduct = async (page,pageSize,keyword,exploreProduct) =>{
         if (exploreProduct) {
             if(!keyword){
@@ -41,7 +39,7 @@ import axios from 'axios'
             const response = await axios.get(`https://dummyjson.com/products`,{
                 params:{
                         
-                        limit: 6,
+                        limit: 8,
                         skip: 0
                 }
             })

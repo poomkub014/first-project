@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-const PaginationPage = ({product}) => {
+const PaginationPage = ({product,explorProduct}) => {
   const {addToCart} = useContext(CartContext);
   const [randomProduct,setRandomProduct] = useState([]);
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const PaginationPage = ({product}) => {
         <Card
         //  hoverable
           style={{ width: 240 }}
-          cover={<Image alt="Product picture" src={product.thumbnail} />}
+          cover={<Image alt={product.title} src={product.thumbnail} />}
         >
          
           <Meta title={product.title}/>
@@ -67,7 +67,7 @@ useEffect(()=>{
       
       <Carousel arrows autoplay >
         {randomProduct.map((product)=>(
-          <div key={product.id}>
+          <div key={product.id} className='mt-[20px]'>
             <h3 style={contentStyle} className=' flex flex-col items-center rounded bg-red-800'><Image src={product.thumbnail} width={300} />
           <p className='cursor-pointer text-xl' onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product.id}})
@@ -81,10 +81,13 @@ useEffect(()=>{
       </Carousel>   
       <hr className='mt-[40px]'></hr>
 
-      <h1 className='m-[20px] text-red-600 '>See our products</h1>
-        <div className='px-[250px] grid  grid-cols-2 gap-4 justify-items-center'>
+       <div className='flex'>
+       <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600 '>See our products</h1>
+        </div> 
+      
+        {explorProduct ?<div className='px-[250px] grid  grid-cols-2 gap-4 justify-items-center'>
           {renderProduct}
-        </div>   
+        </div> : <div className='grid grid-cols-4 gap-4 justify-items-center'>{renderProduct}</div> }  
         </div>     
   );
 }
