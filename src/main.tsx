@@ -11,7 +11,9 @@ import FinalPage from './FinalPage.tsx'
 import Buypage from './Buypage.tsx'
 import ConfirmOrder2 from './ConfirmOrder2.tsx'
 import CreateAccount from './CreateAccount.tsx'
+import OtherProductInCategory from './OtherProductInCategory.tsx'
 import "bootstrap/dist/css/bootstrap.min.css"
+import ProductDetail2 from './ProductDetail2.tsx'
 
 import {
   createBrowserRouter,
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
     element: <Login/>
   },
   {
-    path: "ShowProductByCategory",
+    path: "ListProductByCategory",
     element:<ListProductByCategory/> 
   },
   {
@@ -63,6 +65,14 @@ const router = createBrowserRouter([
   {
     path:"CreateAccount",
     element:<CreateAccount/>
+  },
+  {
+    path:"OtherProductInCategory",
+    element: <OtherProductInCategory/>
+  },
+  {
+    path:"ProductDetail2",
+    element:<ProductDetail2/>
   }
 
 ]);

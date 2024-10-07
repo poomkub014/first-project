@@ -1,5 +1,5 @@
 import axios from "axios"
-import React,{useState,useEffect} from "react" 
+import {useState,useEffect} from "react" 
 import {useNavigate} from 'react-router-dom'
 import beauty from "./image/beauty.png"
 import fragrances from "./image/fragrance.png"
@@ -29,7 +29,7 @@ import womenswatches from "./image/womenswatches.jpg"
 
 const FetchCategories =  () =>{
 
-  const svgMap = {
+  const svgMap = { // กำหนดรูปให้มีชื่อตรงกับ category เพื่อนำไปแสดง
     beauty,
     fragrances,
     furniture,
@@ -54,36 +54,37 @@ const FetchCategories =  () =>{
     womensjewellery,
     womensshoes,
     womenswatches
-  }
+  };
+
     const navigate = useNavigate();
-    const [category,setCategory] = useState([])
+    const [category,setCategory] = useState<string[]>([]) // สร้าง useState เพื่อเก็บค่า category 
     
-    const fetchAPICategories = async () =>{
+    const fetchAPICategories = async () =>{ // Fetch Category ทั้งหมด
       
-      const response = await axios.get('https://dummyjson.com/products/category-list')
-      setCategory(response.data)
-      console.log(response.data)
-    }
+      const response = await axios.get('https://dummyjson.com/products/category-list');
+      setCategory(response.data);
+     
+    };
   
-    useEffect(()=>{
-     fetchAPICategories()
-    },[])
+    useEffect(()=>{ // เรียกใช้ fetchAPICategories 
+     fetchAPICategories();
+    },[]);
       
   
  
 
   return (
+
     <div className="grid grid-cols-8 grid-rows-3 gap-3 justify-items-center text-center">
-      {category.map((item,index)=>(
-      <div key={index} onClick = {()=>{navigate("/ShowProductByCategory",{state:{keyword:item}})}} className="hover:bg-slate-300 border rounded  cursor-pointer w-[100px] flex flex-col items-center p-[5px] ">
-      <img src={svgMap[item.replace(/-/g,'')]} alt={item} className="w-[50px]"></img>
-     <p>{item}</p>
-      </div>
-   
-      ))}
-         
-    
-    
+
+          {category.map((item,index)=>(
+          <div key={index} onClick = {()=>{navigate("/ListProductByCategory",{state:{category:item}})}} className="hover:bg-slate-300 border rounded  cursor-pointer w-[100px] flex flex-col items-center p-[5px] ">
+          <img src={svgMap[item.replace(/-/g,'')]} alt={item} className="w-[50px]"></img>
+        <p>{item}</p>
+          </div>
+      
+          ))}
+        
     </div>
   )
 }

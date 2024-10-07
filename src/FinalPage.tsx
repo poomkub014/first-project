@@ -1,13 +1,10 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-const FinalPage = () => {
+const FinalPage = () => { 
    
-    const navigate = useNavigate();
-    setTimeout(() => {
+    const navigate = useNavigate(); 
+
+    setTimeout(() => { // เมื่อครบ 3 วินาทีจะนำทางไปยังหน้าแรก
         navigate("/")
         }, 3000);
     

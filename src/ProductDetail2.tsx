@@ -1,13 +1,13 @@
-import  { useContext, useEffect, useState } from 'react'
-import {useLocation,Link,useNavigate} from 'react-router-dom'
-import axios from 'axios';
-import { Image,Rate,Button } from 'antd'
-import  {CartContext}  from './useContext/useContext';
-import OtherProductInCategory from './OtherProductInCategory';
+import {useState,useContext,useEffect} from "react";
+import {CartContext} from "./useContext/useContext"
+import { useLocation,Link,useNavigate } from "react-router-dom";
+import { Rate,Button,Image } from "antd";
+import OtherProductInCategory from "./OtherProductInCategory";
+import axios from "axios";
+import UserContext from "./useContext/user";
 import cartIcon from "./image/cart.png"
-import UserContext from './useContext/user';
 
-interface Product{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
+interface Product{
   id:number;
   rating:number;
   title:string;
@@ -16,41 +16,43 @@ interface Product{ // กำหนดชุดข้อมูลเพื่อ�
   description:string;
 };
 
-interface Review{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ review
+interface Review{
   reviewerName:string;
   rating:number;
   comment:string;
   date:string;
 };
 
-const ProductDetail = () => {
-    const navigate = useNavigate();
+const ProductDetail2 = () =>{
     const location = useLocation();
-    const {productId,rating} = location.state || {}; // รับค่า {productId,rating} จากหน้า Pagination
+    const navigate = useNavigate();
+    const {productId,rating} = location.state || {}; // รับค่า {productId,rating} จากหน้า OtherProdcutCategory
     const [product,setProduct] = useState<Product>([]); // สร้าง useState เพื่อเก็บข้อมูลสินค้า
     const [images,setImages] = useState<[] | string>([]); // สร้าง useState เพื่อเก็บรูปภาพสินค้า
-    const [reviews,setReviews] = useState<Review[]>([]);  // สร้าง useState เพื่อเก็บข้อมูลรีวิวสินค้า
+    const [reviews,setReviews] = useState<[]>([]); // สร้าง useState เพื่อเก็บข้อมูลรีวิวสินค้า
     const [category,setCategory] = useState<string>(''); // สร้าง useState เพื่อเก็บข้อมูล category
     const {addToCart,cart} = useContext(CartContext);
-    const {isLoggedIn,user,updateUser,handleLogin,setUserId} = useContext(UserContext);
+    const {user,isLoggedIn,updateUser,handleLogin,setUserId} = useContext(UserContext);
 
-    const FetchDetailProduct = async (productId:number) =>{ // ฟังก์ชั่น Fetch ข้อมูลตาม productId ที่รับมาจากหน้า Pagination
+    const FetchDetailProduct = async (productId:number) =>{  // ฟังก์ชั่น Fetch ข้อมูลตาม productId ที่รับมาจากหน้า OtherProdcutCategory
         const response = await axios.get(`https://dummyjson.com/products/${productId}`)
         setProduct(response.data);
         setCategory(response.data.category);
         setImages(response.data.images);
         setReviews(response.data.reviews);
-    };
+    }
    
 
 
-    useEffect(()=>{ // เรียกใช้ FetchDetailProduct เมื่อมีการเข้าหน้าเว็บเพจ
+    useEffect(()=>{ // เรียกใช้ FetchDetailProduct ทุกครั้งเมื่อ
         FetchDetailProduct(productId)
-    },[productId]);
+       
+    },[productId])
 
     
 
-    const review = reviews.map((review:Review,index) =>{ // ทำการ Render reviews เพื่อนำไปแสดงในส่วน JSX ด้านล่าง
+    
+    const review = reviews.map((review:Review,index) =>{
       return (
         <div key={index} className='border border-1 p-[50px] mx-[40px] my-[10px] text-xl'>
           <p className='font-bold'>{review.reviewerName} : <Rate disabled  allowHalf defaultValue ={review.rating}></Rate></p>
@@ -58,15 +60,16 @@ const ProductDetail = () => {
           <p>{review.date}</p>
         </div>
       )
-    });
+    })
 
-  return (
-
-    <div> 
+    return (
+   
+      <div> 
      <div className=" flex justify-end p-[30px]">
             {isLoggedIn && <img src= {user.image}  width={40}/>}<p className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</p> 
 
             {isLoggedIn ?  <Button className='mx-[10px]' onClick={()=>{   
+                window.location.reload();
                 updateUser({firstName:'Guest'});
                 handleLogin(false);
                 setUserId(null);
@@ -80,7 +83,7 @@ const ProductDetail = () => {
       
 
 <div className='border border-1 p-[50px] mx-[40px] my-[20px]'>
-    {images.length > 1? <div>
+    {images.length > 1 ? <div>
       <div className='grid grid-cols-2 grid-rows-2 gap-2 items-center'>
         <div className='row-span-2 justify-self-end'>
           <Image src={images[0]} width={300}/>
@@ -95,7 +98,7 @@ const ProductDetail = () => {
         </div>
       </div>
         
-    </div> : <div className='flex justify-center'><Image src={images[0]} width={500}></Image></div>}
+    </div> : <div className='flex justify-center'><Image src={images[0]} width={400}></Image></div>}
     
   
     <div className='text-center '>
@@ -136,7 +139,7 @@ const ProductDetail = () => {
 
       <OtherProductInCategory category={category} />
     </div>
-  );
-};
-
-export default ProductDetail
+   
+    )
+}
+export default ProductDetail2

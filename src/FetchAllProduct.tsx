@@ -1,7 +1,7 @@
 import axios from 'axios'
-    const FetchAllProduct = async (page,pageSize,keyword,exploreProduct) =>{
-        if (exploreProduct) {
-            if(!keyword){
+    const FetchAllProduct = async (page:number,pageSize:number,keyword:string,exploreProduct:boolean) =>{ //เป็นฟังก์ชั่นสำหรับ Fetch ข้อมูลสินค้าทั้งหมด
+        if (exploreProduct) { // ในกรณีที่ exploreProduct = true 
+            if(!keyword){ // ในกรณีที่ exploreProduct = true และไม่มี keyword
             
                 const skip = (page-1) * pageSize;
            
@@ -13,9 +13,9 @@ import axios from 'axios'
                     }
                 })
                 
-                return response.data
+                return response.data;
                 
-            }else{
+            }else{ // ในกรณีที่ exploreProduct = true และมี keyword
                 const skip = (page-1) * pageSize;
            
                 const response = await axios.get(`https://dummyjson.com/products/search`,{
@@ -26,16 +26,14 @@ import axios from 'axios'
                     }
                 })
                 
-                return response.data
+                return response.data;
                 
             }
             
-        }else{
+        }else{ // ในกรณีที่ exploreProduct != true 
            
-           if(!keyword){
+           if(!keyword){ // ในกรณีที่ exploreProduct != true และไม่มี keyword
             
-            //const skip = (page-1) * pageSize;
-       
             const response = await axios.get(`https://dummyjson.com/products`,{
                 params:{
                         
@@ -44,9 +42,9 @@ import axios from 'axios'
                 }
             })
             
-            return response.data
+            return response.data;
             
-        }else{
+        }else{ // ในกรณีที่ exploreProduct != true และมี keyword
             const skip = (page-1) * pageSize;
        
             const response = await axios.get(`https://dummyjson.com/products/search`,{
@@ -57,7 +55,7 @@ import axios from 'axios'
                 }
             })
             
-            return response.data
+            return response.data;
             
         }
            
@@ -66,17 +64,3 @@ import axios from 'axios'
 
 export default FetchAllProduct
 
-//       export const Search = async (keyword) =>{
-//          
-//           const response = await axios.get(`https://dummyjson.com/products/search`,{
-//                params:{
-//                        q:keyword
-//                        
-//                        
-//                        
-//                        
-//                }
-//            })
-//            return response.data      
-//            
-//       } 

@@ -1,105 +1,110 @@
- import { useEffect, useState ,useContext} from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { useEffect, useState ,useContext} from 'react'
+import { useNavigate,Link } from 'react-router-dom'
 import { Button ,Pagination,Image } from 'antd'
 import PaginationPage from './Pagination'
 import FetchAllProduct from './FetchAllProduct'
 import FetchCategories from './FetchCategories'
 import UserContext from './useContext/user.tsx'
-import MagnifyingGlass from "./image/Magnifyingglass.png"
 import { CartContext } from './useContext/useContext.tsx'
+import logo from './image/logo.jfif'
+import axios from 'axios'
+import cartIcon from "./image/cart.png"
 
+interface Product { // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
+ id:number;
+ rating:number;
+ title:string;
+}
 
+interface NewArrival{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ newArrival
+  thumbnail:string;
+  title:string;
+}
 
-function Home() {
-  const [page,setPage] = useState(1)
-  const [pageSize,setPageSize] = useState(10)
-  const [product,setProduct] = useState([])
-  const [total,setTotal] = useState(194)
-  const [query,setQuery] = useState('')
-  const [exploreProduct,setExploreProduct] = useState(false)
-  const [newArrival,setNewArrival] = useState('');
-  const [newArrival2,setNewArrival2] = useState('');
-  const [newArrival3,setNewArrival3] = useState('');
-  const [title,setTitle] = useState('');
-  const [title2,setTitle2] = useState('');
-  const [title3,setTitle3] = useState('');
-  const {user,updateUser,isLoggedIn,handleLogin} = useContext(UserContext);
-  const {keyword,setKeyword} = useContext(CartContext);
-  const navigate = useNavigate();
+const Home =() => {
+  const [page,setPage] = useState(1); // สร้าง useState เพื่อกำหนดค่าให้กับหน้าปัจจุบัน (เพื่อใช้กับ Pagination ของ antd)
+  const [pageSize,setPageSize] = useState(10); //สร้าง useState เพื่อกำหนดค่าให้กับจำนวนของรายการสินค้าที่ต้องการโชว์ในแต่ละหน้า (เพื่อใช้กับ Pagination ของ antd)
+  const [total,setTotal] = useState(194); //สร้าง useState เพื่อรับค่าจำนวนรายการสินค้าทั้งหมด (เพื่อใช้กับ Pagination ของ antd)
+  const [product,setProduct] = useState<Product[]>([]); //สร้าง useState เพื่อรับค่าจากการ Fetch API ของรายการสินค้าทั้งหมด
+  const [exploreProduct,setExploreProduct] = useState<boolean>(false); //สร้าง useState เพื่อกำหนดค่าเมื่อผู้ใช้คลิกปุ่ม exploreProduct
+  const [newArrival,setNewArrival] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 1 จากการ Fetch API
+  const [newArrival2,setNewArrival2] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 2 จากการ Fetch API
+  const [newArrival3,setNewArrival3] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 3 จากการ Fetch API
+  const {user,updateUser,isLoggedIn,handleLogin,setUserId} = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user 
+  const {keyword,cart} = useContext(CartContext); // ดึงค่ามาจาก useContext ในไฟล์ useContext
+  const navigate = useNavigate(); // คำสั่งของ React-router-dom เป็นคำสั่งนำทางไปยังหน้าต่างๆที่เราต้องการ
  
-  const onShowSizeChange = (current, size) => {
-    setPageSize(size)
-    setPage(current)
-    FetchProduct(current,size)
+  const onShowSizeChange = (current:number, size:number) => { //เป็น UI Pagination ของ antd
+    setPageSize(size);
+    setPage(current);
   };
 
-
-  const FetchProduct = async (page,pageSize) => {
+  const FetchProduct = async () => {  //เป็นฟังก์ชั่นสำหรับ Fetch ข้อมูลสินค้าทั้งหมด
      const response =  await FetchAllProduct(page,pageSize,keyword,exploreProduct)
     setProduct(response.products);
     setTotal(response.total);
-    setNewArrival(response.products[0].thumbnail)
-    setNewArrival2(response.products[4].thumbnail)
-    setNewArrival3(response.products[7].thumbnail)
-    setTitle(response.products[0].title)
-    setTitle2(response.products[4].title)
-    setTitle3(response.products[7].title)
     
   }
-  
 
-  const handleOnSubmit = (e) =>{
-   e.preventDefault();
-   setKeyword(query);
-   setPage(1);
-   setExploreProduct(true)
+  const newProduct =  async() =>{ //เป็นฟังก์ชั่นสำหรับ Fetch ข้อมูลสินค้าใหม่
+    const response = await axios.get(`https://dummyjson.com/products`,{
+      
+    })
+    setNewArrival(response.data.products[0])
+    setNewArrival2(response.data.products[4])
+    setNewArrival3(response.data.products[7])
+    
   }
-  
-  const handleOnChange = (e) => {
-     setQuery(e.target.value);  
-  }
-  
-  useEffect(()=>{
-  FetchProduct(page,pageSize);
+  useEffect(()=>{ //คำสั่ง useEffect เพื่อทำการเรียก FetchProduct(); และ newProduct(); เมื่อ page,pageSize,keyword,exploreProduct มีการเปลี่ยนแปลง
+  FetchProduct();
+  newProduct();
   },[page,pageSize,keyword,exploreProduct]);
     
   return (
     <div>
-      
-      <div className=' w-[100%] h-[80px] flex justify-between m-[20px] '>
-      
-      <div className='m-[10px]'> 
-        Exclusive Product
+      {/* <div className='bg-red-600 w-[100%]  h-[80px]  '></div> */}
+
+      <div className='grid grid-cols-3 items-center p-[20px]'> 
+
+      <div>
+        <img src={logo} className='rounded w-[100px]'></img>
       </div>
 
       <div>
-        <button className='m-[10px] font-bold text-xl'>Home</button>
-        <button className='m-[10px] font-bold text-xl'>Contact</button>
-        <button className='m-[10px] font-bold text-xl'>About</button>
+        <h2 className='text-center text-[red]'>E-Commerce Website</h2>
       </div>
-      
-      <div className="flex">  
-      <form onSubmit = {handleOnSubmit} className=' bg-slate-100 flex h-[40px] '> 
-            <input className = ' bg-slate-100 mx-[10px] w-[200px]' placeholder='What are you looking for ?' onChange ={handleOnChange}></input>
-            <button><img src={MagnifyingGlass} className='w-[20px]'></img></button> 
-        </form>
-        <p className='mx-[10px]  text-xl '>{user.firstName}  {user.lastName}</p>    
-        {isLoggedIn ? <Button className='mx-[10px]' onClick={()=>{   
-            window.location.reload();
-            updateUser({firstName:'Guest'});
-            handleLogin(false);
-          }}>Logout</Button> : <Button className='mx-[10px]'><Link to ="/Login">Sign Up</Link></Button> }    
-        <Button className ="mr-[30px]"><Link to ="/Cart">ตะกร้า</Link></Button>       
+
+        <div className=" flex justify-end">
+            {isLoggedIn && <img src= {user.image}  width={40}/>}<p className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</p> 
+
+            {isLoggedIn ?  <Button className='mx-[10px]' onClick={()=>{   
+                window.location.reload();
+                updateUser({firstName:'Guest'});
+                handleLogin(false);
+                setUserId(null);
+              }}>Logout</Button> : <Button className='mx-[10px]'><Link to ="/Login">Sign Up</Link></Button> }    
+            <div className = 'cursor-pointer text-center flex' onClick={()=>navigate("/cart")}>
+            <img src={cartIcon} width={40} />
+            {cart.length > 0 &&<span className='text-lg   text-red-500 font-bold'>{cart.length}</span>}
+            </div>       
+          </div>   
       </div>
+        
+          {/* <div className=' flex justify-self-center '>
+            <p className=' font-bold text-xl'>Home</p>
+            <p className='mx-[20px] font-bold text-xl'>Contact</p>
+            <p className='font-bold text-xl'>About</p>
+          </div> */}
+          
+          
  
-    </div>
 
     <hr></hr>
 
-  <div className='mb-[40px] flex'>
-    <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600 '>Categories</h1>
+  <div className='my-[20px] flex'>
+    <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600'>Categories</h1>
     </div> 
-    <FetchCategories></FetchCategories>
+    <FetchCategories></FetchCategories> 
   
 
 <hr></hr>
@@ -108,29 +113,31 @@ function Home() {
     <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600 '> New Arrival</h1>
     </div>
     
-  <div className='flex justify-center'>
-
-    <div className='border-1 rounded mr-[20px]'>
-      <Image src={newArrival3} width={600}/>
-      <p  className='text-center font-bold text-4xl'>{title3}</p>
+  <div className='flex justify-center items-cneter '>
+          <div className='flex items-center'>
+          <div className='border-1 rounded mr-[20px]'>
+      <Image src={newArrival3.thumbnail} width={400}/>
+      <p  className='text-center font-bold text-4xl'>{newArrival3.title}</p>
       <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[7].id,rating:product[7].rating}})
           }}  className='text-sky-500 cursor-pointer text-end mr-[10px]'>View detail</p>
     </div>
 
+          </div>
+    
 
-    <div className='flex flex-col   text-end'>
+    <div className='text-end flex flex-col w-[200px]'>
       <div className='border-1 rounded mb-[10px] '>
-        <Image src={newArrival2}/>
-        <p  className='text-center font-bold text-2xl'>{title2}</p>
+        <Image src={newArrival2.thumbnail} width={200}/>
+        <p  className='text-center font-bold text-2xl'>{newArrival2.title}</p>
         <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[4].id,rating:product[4].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
       </div>
     
       <div className='border-1 rounded'>
-        <Image src={newArrival}/>
-        <p  className='text-center font-bold text-2xl'>{title}</p>
+        <Image src={newArrival.thumbnail} width={200}/>
+        <p  className='text-center font-bold text-2xl'>{newArrival.title}</p>
         <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[0].id,rating:product[0].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
@@ -143,7 +150,7 @@ function Home() {
     <div className='flex'>
     <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600 '> Recommend products</h1>
     </div>
-    <PaginationPage product ={product} explorProduct={exploreProduct}/>
+    <PaginationPage product ={product} explorProduct={exploreProduct} setPage = {setPage} setExplorProduct = {setExploreProduct}  />
 
     <div className='flex justify-center my-[20px]'>
 
