@@ -2,19 +2,12 @@ import  { useContext, useEffect, useState } from 'react'
 import {useLocation,Link,useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { Image,Rate,Button } from 'antd'
-import  {CartContext}  from './useContext/useContext';
+import  {CartContext, CartContextType}  from './useContext/useContext';
 import OtherProductInCategory from './OtherProductInCategory';
 import cartIcon from "./image/cart.png"
 import UserContext from './useContext/user';
+import { ProductItem } from './type/Product';
 
-interface Product{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
-  id:number;
-  rating:number;
-  title:string;
-  discountPercentage:number;
-  price:number;
-  description:string;
-};
 
 interface Review{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ review
   reviewerName:string;
@@ -27,12 +20,12 @@ const ProductDetail = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const {productId,rating} = location.state || {}; // รับค่า {productId,rating} จากหน้า Pagination
-    const [product,setProduct] = useState<Product>([]); // สร้าง useState เพื่อเก็บข้อมูลสินค้า
+    const [product,setProduct] = useState<ProductItem>(); // สร้าง useState เพื่อเก็บข้อมูลสินค้า
     const [images,setImages] = useState<[] | string>([]); // สร้าง useState เพื่อเก็บรูปภาพสินค้า
     const [reviews,setReviews] = useState<Review[]>([]);  // สร้าง useState เพื่อเก็บข้อมูลรีวิวสินค้า
     const [category,setCategory] = useState<string>(''); // สร้าง useState เพื่อเก็บข้อมูล category
-    const {addToCart,cart} = useContext(CartContext);
-    const {isLoggedIn,user,updateUser,handleLogin,setUserId} = useContext(UserContext);
+    const {addToCart,cart} = useContext(CartContext) as CartContextType;;
+    const {isLoggedIn,user,updateUser,handleLogin,setUserId}:any = useContext(UserContext);
 
     const FetchDetailProduct = async (productId:number) =>{ // ฟังก์ชั่น Fetch ข้อมูลตาม productId ที่รับมาจากหน้า Pagination
         const response = await axios.get(`https://dummyjson.com/products/${productId}`)
@@ -40,12 +33,14 @@ const ProductDetail = () => {
         setCategory(response.data.category);
         setImages(response.data.images);
         setReviews(response.data.reviews);
+     
     };
    
 
 
     useEffect(()=>{ // เรียกใช้ FetchDetailProduct เมื่อมีการเข้าหน้าเว็บเพจ
         FetchDetailProduct(productId)
+       
     },[productId]);
 
     
@@ -99,32 +94,36 @@ const ProductDetail = () => {
     
   
     <div className='text-center '>
-      <h1 className='font-bold'>{product.title}</h1>
+      <h1 className='font-bold'>{product?.title}</h1>
       <div className='mt-[30px]'> <span className='font-bold text-2xl '>Rating : <Rate disabled allowHalf defaultValue={rating}/> {rating}</span></div>
    
-      {product.discountPercentage ? 
+      {product?.discountPercentage ? 
       <div className='mt-[20px]' >
       <span className='font-bold text-xl line-through'>Price : {product.price}$</span>
       <span className='font-bold text-xl mx-[10px]'>Discount : {product.discountPercentage} %</span><br/>
       <span className='font-bold text-xl'> Price : {Math.round((product.price - ((product.price * product.discountPercentage)/100))*100)/100}$</span></div>
-      : <div><span className='font-bold text-xl'>Price : {product.price}</span></div>}
+      : <div><span className='font-bold text-xl'>Price : {product?.price}</span></div>}
       </div>
       </div>
       <div className='px-[50px] text-start'>
           <div className='my-[20px] text-red-600 font-bold text-2xl text-start'>Description</div>
-          <span className='ml-[20px] font-bold text-xl'>{product.description} </span>
+          <span className='ml-[20px] font-bold text-xl'>{product?.description} </span>
       </div>  
     
   
     
   
     <div className='flex justify-center my-[30px]'>
-          <div className='flex font-bold items-center px-[20px] py-[10px] m-[20px] rounded-xl transition hover:scale-105 bg-cyan-500 text-[white] active:bg-cyan-400 active:text-white border border-1   cursor-pointer ' onClick={()=>{addToCart(product)}}>
+          <div className='flex font-bold items-center px-[20px] py-[10px] m-[20px] rounded-xl transition hover:scale-105 bg-cyan-500 text-[white] active:bg-cyan-400 active:text-white border border-1   cursor-pointer ' onClick={()=>{product && addToCart(product)}}>
               Add to cart
              
           </div>
-          <div className='flex font-bold items-center px-[30px]  m-[20px] rounded-xl transition hover:scale-105 bg-amber-500 text-[white] active:bg-amber-400 active:text-white border border-1 cursor-pointer ' onClick={()=> navigate("/Buypage",{state:{productId:product.id,rating:product.rating}})}>
+          <div className='flex font-bold items-center px-[30px]  m-[20px] rounded-xl transition hover:scale-105 bg-amber-500 text-[white] active:bg-amber-400 active:text-white border border-1 cursor-pointer ' onClick={()=> navigate("/Buypage",{state:{productId:product?.id,rating:product?.rating}})}>
               Buy
+             
+          </div>
+          <div className='flex font-bold items-center px-[30px]  m-[20px] rounded-xl transition hover:scale-105 bg-red-500 text-[white] active:bg-red-400 active:text-white border border-1 cursor-pointer ' onClick={()=> {navigate("/"),window.location.reload()}}>
+              Back
              
           </div>
     </div>

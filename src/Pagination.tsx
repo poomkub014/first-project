@@ -1,30 +1,25 @@
 import { Image,Card,Carousel,Rate} from 'antd'
 import { useContext, useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { CartContext } from './useContext/useContext';
+import { CartContext, CartContextType } from './useContext/useContext';
 import MagnifyingGlass from "./image/Magnifyingglass.png"
 import cartIcon2 from "./image/cartIcon2.png"
 import axios from 'axios';
 import shoppingIcon from "./image/shoppingIcon.png"
+import { ProductItem } from './type/Product';
 
-interface Product{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
-  id:number;
-  title:string;
-  price:number;
-  rating:number;
-  thumbnail:string;
-};
+
 
 interface propsType{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดข้อมูล props ที่ได้รับมา
-  product:[];
+  product:ProductItem[];
   explorProduct:boolean;
   setPage:any;
   setExplorProduct:any;
  };
 
-const PaginationPage:React.FC<propsType> = ({product,explorProduct,setPage,setExplorProduct}) => { // นำ propsType ที่ประกาศไว้ด้านบนมาใช้กับ props ที่ได้รับมา
-  const {addToCart,setKeyword} = useContext(CartContext);
-  const [randomProduct,setRandomProduct] = useState<Product[]>([]); // สร้าง useState มารับค่าข้อมูลสินค้าที่ทำการ Random
+const PaginationPage = ({product,explorProduct,setPage,setExplorProduct} : propsType) => { // นำ propsType ที่ประกาศไว้ด้านบนมาใช้กับ props ที่ได้รับมา
+  const {addToCart,setKeyword} = useContext(CartContext) as CartContextType;
+  const [randomProduct,setRandomProduct] = useState<ProductItem[]>([]); // สร้าง useState มารับค่าข้อมูลสินค้าที่ทำการ Random
   const [query,setQuery] = useState<string>(''); //  สร้าง useState มารับค่าคีย์เวิร์ดที่ User ทำการป้อนในช่องค้นหาสินค้า
   const navigate = useNavigate();
   const { Meta } = Card;
@@ -39,30 +34,30 @@ const PaginationPage:React.FC<propsType> = ({product,explorProduct,setPage,setEx
   };
 
 
-  const renderProduct = product.map((product:Product)=>{ // ทำการ Render product ที่ได้รับมาเป็น props จากหน้า Home และนำไปแสดงในส่วน JSX ที่อยู่ด้านล่าง
-    return <div key={product.id} >
+  const renderProduct = product.map((item)=>{ // ทำการ Render product ที่ได้รับมาเป็น props จากหน้า Home และนำไปแสดงในส่วน JSX ที่อยู่ด้านล่าง
+    return <div key={item.id} >
         <Card
         //  hoverable
           style={{ width: 240 }}
-          cover={<Image alt={product.title} src={product.thumbnail} />}
+          cover={<Image alt={item.title} src={item.thumbnail} />}
         >
          
-          <Meta title={product.title}/>
+          <Meta title={item.title}/>
          
           <br/>
-          <p className='text-lg font-bold'>Rate : <Rate disabled allowHalf defaultValue={product.rating}/></p>
-          <p className='text-lg font-bold'>Price : {product.price}$</p>
+          <p className='text-lg font-bold'>Rate : <Rate disabled allowHalf defaultValue={item.rating}/></p>
+          <p className='text-lg font-bold'>Price : {item.price}$</p>
           <div  className='flex justify-end' ><p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product.id,rating:product.rating}})
+            navigate("/ProductDetail",{state:{productId:item.id,rating:item.rating}})
           }}  className='text-sky-500 cursor-pointer'>View detail</p> </div>
           <hr></hr>
           
           <div className='grid grid-cols-3 justify-items-center'>
-              <div className='flex font-bold items-center p-[5px] rounded-xl  transition hover:scale-105  active:bg-cyan-500 active:text-white border border-1  col-span-2 cursor-pointer mr-[5px]' onClick={()=>{addToCart(product)}}>
+              <div className='flex font-bold items-center p-[5px] rounded-xl  transition hover:scale-105  active:bg-cyan-500 active:text-white border border-1  col-span-2 cursor-pointer mr-[5px]' onClick={()=>{addToCart(item)}}>
                   <div>Add to cart</div>
                   <img src={cartIcon2} width={30} className='ml-[5px]'></img>
               </div>
-              <div className='flex font-bold items-center p-[5px] rounded-xl transition hover:scale-105 active:bg-amber-400 active:text-white border border-1 cursor-pointer' onClick={()=> navigate("/Buypage",{state:{productId:product.id,rating:product.rating}})}>
+              <div className='flex font-bold items-center p-[5px] rounded-xl transition hover:scale-105 active:bg-amber-400 active:text-white border border-1 cursor-pointer' onClick={()=> navigate("/Buypage",{state:{productId:item.id,rating:item.rating}})}>
                   <div>Buy</div>
                   <img src={shoppingIcon} width={30} className='ml-[5px]'></img>
               </div>
@@ -108,7 +103,7 @@ useEffect(()=>{ // เรียกใช้ showRandomProduct ทุกครั
     <div>
       
       <Carousel arrows autoplay >
-        {randomProduct.map((product:Product)=>(
+        {randomProduct.map((product)=>(
           <div key={product.id} className='mt-[20px]'>
             <h3 style={contentStyle} className=' flex flex-col items-center rounded bg-red-800'><Image src={product.thumbnail} width={300} />
           <p className='cursor-pointer text-xl' onClick={()=>{

@@ -1,17 +1,17 @@
 import React,{createContext,ReactNode,useEffect,useState} from "react";
 
 interface User{
-    firstName:string;
-    lastName:string,
-    address:string,
-    city:string,
-    state:string,
-    postalCode:string,
-    phone:string ,
-    image:string      
+    firstName?:string;
+    lastName?:string,
+    address?:string,
+    city?:string,
+    state?:string,
+    postalCode?:string,
+    phone?:string ,
+    image?:string      
 }
 
-interface UserContextType {
+export interface UserContextType {
     user:User;
     updateUser : (newUser:User) => void;
     handleLogin : (status:boolean) => void;
@@ -19,12 +19,13 @@ interface UserContextType {
     setUserId : React.Dispatch < React.SetStateAction <number | null> >;
     userId : number | null;
 }
- const UserContext = createContext<UserContextType | undefined>(undefined);
+ const UserContext = createContext<UserContextType| undefined>(undefined);
 
  interface UserProviderProps {
     children : ReactNode;
  }
 
+ 
 export const UserProvider = ({children}:UserProviderProps) =>{
     const [user,setUser] = useState<User>({ // สร้าง useState เพื่อเก็บข้อมูลลูกค้าที่ทำการ Login
         firstName:'Guest',

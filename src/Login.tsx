@@ -6,7 +6,7 @@ import login from "./image/Login.png"
 import login2 from "./image/Login2.avif"
 
 const Login = () => {
-const {updateUser,handleLogin,setUserId,userId} = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user 
+const {updateUser,handleLogin,setUserId,userId}:any = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user 
 const [username,setUsername] = useState(''); // สร้าง useState เพื่อเก็บค่า username
 const [password,setPassword] = useState(''); // สร้าง useState เพื่อเก็บค่า password
 const navigate = useNavigate();
@@ -27,7 +27,7 @@ const handleOnSubmit = (e:any) =>{ // ฟังก์ชั่น เมื่�
                 })      
                 setUserId(response.data.id)
           }catch(error){
-                alert('Log in fail',error)
+                alert('Log in fail')
           }                      
         }else{
               alert('Enter username or password')
@@ -84,8 +84,12 @@ useEffect(()=>{ // ถ้าหากมี userId จะทำการเร�
                     <hr className="mt-[10px] mb-[20px]"></hr>
                     <button  className="my-[10px] bg-[red] h-[50px] rounded-full text-white">Log in</button>
                     <div className="flex justify-end">
+                        
                         <p  className='text-sky-500 cursor-pointer' onClick={()=>{navigate("/CreateAccount")}}>Create an account?</p>
                     </div> 
+                    <span className="font-bold text-red-500">*This is username and password for test my webapp</span>
+                    <span> Username : emilys</span>
+                    <span>Password : emilyspass </span>
               </div>
             </form>
           </div>

@@ -19,7 +19,7 @@ const ConfirmOrder2 = () => {
  });
  
  const navigate = useNavigate();
- const {user} = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user
+ const {user}:any = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user
  const location = useLocation();
  const {productTitle,price,quantity,image} = location.state || {}; // รับค่ามาจาก state ผ่าน react-router-dom ในไฟล์ Buypage
 

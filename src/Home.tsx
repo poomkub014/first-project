@@ -4,17 +4,15 @@ import { Button ,Pagination,Image } from 'antd'
 import PaginationPage from './Pagination'
 import FetchAllProduct from './FetchAllProduct'
 import FetchCategories from './FetchCategories'
-import UserContext from './useContext/user.tsx'
-import { CartContext } from './useContext/useContext.tsx'
+import UserContext, { UserContextType } from './useContext/user.tsx'
+import { CartContext, CartContextType } from './useContext/useContext.tsx'
 import logo from './image/logo.jfif'
 import axios from 'axios'
 import cartIcon from "./image/cart.png"
+import { ProductItem } from './type/Product.ts'
 
-interface Product { // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
- id:number;
- rating:number;
- title:string;
-}
+
+
 
 interface NewArrival{ // กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ newArrival
   thumbnail:string;
@@ -25,13 +23,13 @@ const Home =() => {
   const [page,setPage] = useState(1); // สร้าง useState เพื่อกำหนดค่าให้กับหน้าปัจจุบัน (เพื่อใช้กับ Pagination ของ antd)
   const [pageSize,setPageSize] = useState(10); //สร้าง useState เพื่อกำหนดค่าให้กับจำนวนของรายการสินค้าที่ต้องการโชว์ในแต่ละหน้า (เพื่อใช้กับ Pagination ของ antd)
   const [total,setTotal] = useState(194); //สร้าง useState เพื่อรับค่าจำนวนรายการสินค้าทั้งหมด (เพื่อใช้กับ Pagination ของ antd)
-  const [product,setProduct] = useState<Product[]>([]); //สร้าง useState เพื่อรับค่าจากการ Fetch API ของรายการสินค้าทั้งหมด
+  const [product,setProduct] = useState<ProductItem[]>([]); //สร้าง useState เพื่อรับค่าจากการ Fetch API ของรายการสินค้าทั้งหมด
   const [exploreProduct,setExploreProduct] = useState<boolean>(false); //สร้าง useState เพื่อกำหนดค่าเมื่อผู้ใช้คลิกปุ่ม exploreProduct
-  const [newArrival,setNewArrival] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 1 จากการ Fetch API
-  const [newArrival2,setNewArrival2] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 2 จากการ Fetch API
-  const [newArrival3,setNewArrival3] = useState<NewArrival>([]); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 3 จากการ Fetch API
-  const {user,updateUser,isLoggedIn,handleLogin,setUserId} = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user 
-  const {keyword,cart} = useContext(CartContext); // ดึงค่ามาจาก useContext ในไฟล์ useContext
+  const [newArrival,setNewArrival] = useState<NewArrival | undefined>(); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 1 จากการ Fetch API
+  const [newArrival2,setNewArrival2] = useState<NewArrival>(); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 2 จากการ Fetch API
+  const [newArrival3,setNewArrival3] = useState<NewArrival>(); //สร้าง useState เพื่อรับค่าสินค้าใหม่ 3 จากการ Fetch API
+  const  {user,updateUser,isLoggedIn,handleLogin,setUserId} = useContext(UserContext) as  UserContextType; // ดึงค่ามาจาก useContext ในไฟล์ user 
+  const {keyword,cart} = useContext(CartContext) as CartContextType; // ดึงค่ามาจาก useContext ในไฟล์ useContext
   const navigate = useNavigate(); // คำสั่งของ React-router-dom เป็นคำสั่งนำทางไปยังหน้าต่างๆที่เราต้องการ
  
   const onShowSizeChange = (current:number, size:number) => { //เป็น UI Pagination ของ antd
@@ -116,8 +114,8 @@ const Home =() => {
   <div className='flex justify-center items-cneter '>
           <div className='flex items-center'>
           <div className='border-1 rounded mr-[20px]'>
-      <Image src={newArrival3.thumbnail} width={400}/>
-      <p  className='text-center font-bold text-4xl'>{newArrival3.title}</p>
+      <Image src={newArrival3?.thumbnail} width={400}/>
+      <p  className='text-center font-bold text-4xl'>{newArrival3?.title}</p>
       <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[7].id,rating:product[7].rating}})
           }}  className='text-sky-500 cursor-pointer text-end mr-[10px]'>View detail</p>
@@ -128,16 +126,16 @@ const Home =() => {
 
     <div className='text-end flex flex-col w-[200px]'>
       <div className='border-1 rounded mb-[10px] '>
-        <Image src={newArrival2.thumbnail} width={200}/>
-        <p  className='text-center font-bold text-2xl'>{newArrival2.title}</p>
+        <Image src={newArrival2?.thumbnail} width={200}/>
+        <p  className='text-center font-bold text-2xl'>{newArrival2?.title}</p>
         <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[4].id,rating:product[4].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
       </div>
     
       <div className='border-1 rounded'>
-        <Image src={newArrival.thumbnail} width={200}/>
-        <p  className='text-center font-bold text-2xl'>{newArrival.title}</p>
+        <Image src={newArrival?.thumbnail} width={200}/>
+        <p  className='text-center font-bold text-2xl'>{newArrival?.title}</p>
         <p  onClick={()=>{
             navigate("/ProductDetail",{state:{productId:product[0].id,rating:product[0].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
@@ -150,6 +148,7 @@ const Home =() => {
     <div className='flex'>
     <span className='bg-[red] w-[10px] ml-[10px]'></span><h1 className='m-[20px] text-red-600 '> Recommend products</h1>
     </div>
+
     <PaginationPage product ={product} explorProduct={exploreProduct} setPage = {setPage} setExplorProduct = {setExploreProduct}  />
 
     <div className='flex justify-center my-[20px]'>

@@ -1,20 +1,20 @@
 import  React , {createContext,useEffect,useState,ReactNode} from "react";
+import { ProductItem } from "../type/Product";
 
-interface Product{
-  id:number;
-  name:string;
+interface ProductwithQuantity extends ProductItem{
   quantity:number;
 }
 
-interface CartContextType {
-  cart:Product[];
-  setCart:React.Dispatch<React.SetStateAction<Product[]>>;
-  addToCart : (product:Product) => void;
-  removeFromCart : (product:Product) => void;
+export interface CartContextType {
+  cart:ProductwithQuantity[];
+  setCart:React.Dispatch<React.SetStateAction<ProductwithQuantity[]>>;
+  addToCart : (product:ProductItem) => void;
+  removeFromCart : (product:ProductItem) => void;
   increaseQuantity : (productId : number) => void;
   decreaseQuantity : (productId : number) => void;
   clearProduct : () => void;
-  
+  keyword:string;
+  setKeyword: React.Dispatch < React.SetStateAction <string> >;
 }
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -25,7 +25,7 @@ interface CartProviderProps {
 export const CartProvider = ({children}:CartProviderProps) => {
   
     const [keyword,setKeyword] = useState<string>(''); // สร้าง useState เพื่อรับค่า keyword ที่ลูกค้าต้องการค้นหา
-    const [cart,setCart] = useState<Product[]>(()=>{ // สร้าง useState เพื่อรับค่า cart ที่ลูกค้าต้องการเพิ่ม และเก็บไว้ใน localStorage
+    const [cart,setCart] = useState<ProductwithQuantity[]>(()=>{ // สร้าง useState เพื่อรับค่า cart ที่ลูกค้าต้องการเพิ่ม และเก็บไว้ใน localStorage
       const savedCart = localStorage.getItem('cart'); // เป็นคำสั่งในการเรียกค่า cart ใน localStorage
       return savedCart ? JSON.parse(savedCart) : []; 
     });
@@ -36,7 +36,7 @@ export const CartProvider = ({children}:CartProviderProps) => {
 
     
 
-    const addToCart = (product:Product) =>{ // เป็นคำสั่งในการเพิ่มสินค้าที่ต้องการลงในตะกร้า
+    const addToCart = (product:ProductItem) =>{ // เป็นคำสั่งในการเพิ่มสินค้าที่ต้องการลงในตะกร้า
 
       const existingProduct = cart.find((item) => item.id === product.id)
       
@@ -51,7 +51,7 @@ export const CartProvider = ({children}:CartProviderProps) => {
       }
     };
 
-    const removeFromCart = (product:Product) =>{ // เป็นคำสั่งในการลบสินค้าที่ต้องการในตะกร้า
+    const removeFromCart = (product:ProductItem) =>{ // เป็นคำสั่งในการลบสินค้าที่ต้องการในตะกร้า
        setCart(cart.filter(item => item.id !==  product.id))
       };
 

@@ -3,25 +3,19 @@ import axios from 'axios';
 import {useLocation,useNavigate,Link} from 'react-router-dom';
 import { Image,Button,Card,Pagination,Rate } from 'antd';
 import cartIcon from "./image/cart.png"
-import { CartContext } from './useContext/useContext';
-import UserContext from './useContext/user';
+import { CartContext, CartContextType } from './useContext/useContext';
+import UserContext, { UserContextType } from './useContext/user';
+import { ProductItem } from './type/Product';
 
-interface Product { //กำหนดชุดข้อมูลเพื่อกำหนดชนิดตัวแปรให้กับ product
-  id:number;
-  title:string;
-  price:number;
-  rating:number;
-  thumbnail:string;
-}
 
 const ListProductByCategory = () => {
-  const {addToCart,cart} = useContext(CartContext); // ดึงค่ามาจาก useContext ในไฟล์ useContext 
-  const {isLoggedIn,user,setUserId,updateUser,handleLogin} = useContext(UserContext); // ดึงค่ามาจาก useContext ในไฟล์ user 
+  const {addToCart,cart} = useContext(CartContext) as CartContextType; // ดึงค่ามาจาก useContext ในไฟล์ useContext 
+  const {isLoggedIn,user,setUserId,updateUser,handleLogin} = useContext(UserContext)  as UserContextType; // ดึงค่ามาจาก useContext ในไฟล์ user 
   const navigate = useNavigate();
   const { Meta } = Card;
   const location = useLocation();
   const {category} = location.state || {}; //รับค่า keyword ผ่าน react-router-dom จากไฟล์ FetchCategories
-  const [products,setProducts] = useState<Product[]>([]); // สร้าง useState เพื่อเก็บค่า product
+  const [products,setProducts] = useState<ProductItem[]>(); // สร้าง useState เพื่อเก็บค่า product
   const [total,setTotal] = useState<number>(0); // สร้าง useState เพื่อเก็บค่า total
   const [page,setPage] = useState<number>(1); // สร้าง useState เพื่อเก็บค่า page
   const [pageSize,setPageSize] = useState<number>(10); // สร้าง useState เพื่อเก้บค่า pageSize
@@ -47,7 +41,7 @@ const ListProductByCategory = () => {
     fetchProductByCategory(page,pageSize,category)
     },[page,pageSize,category])
 
-    const renderProduct = products.map((product:Product)=>{ // ประกาศตัวแปร renderProduct ทำการ render ข้อมูลใน product และนำมาแสดง
+    const renderProduct = products?.map((product)=>{ // ประกาศตัวแปร renderProduct ทำการ render ข้อมูลใน product และนำมาแสดง
       return <div key={product.id} >
           <Card
             hoverable

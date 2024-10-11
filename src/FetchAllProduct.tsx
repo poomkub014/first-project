@@ -1,4 +1,5 @@
 import axios from 'axios'
+
     const FetchAllProduct = async (page:number,pageSize:number,keyword:string,exploreProduct:boolean) =>{ //เป็นฟังก์ชั่นสำหรับ Fetch ข้อมูลสินค้าทั้งหมด
         if (exploreProduct) { // ในกรณีที่ exploreProduct = true 
             if(!keyword){ // ในกรณีที่ exploreProduct = true และไม่มี keyword

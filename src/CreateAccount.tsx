@@ -73,6 +73,7 @@ const CreateAccount = () => {
 
            
           <div className="w-[500px]">
+            
             <h1 className='text-center'>Create an account</h1>
             <form onSubmit={handleOnSubmit} className='flex flex-col my-[30px]'>
                 <span className="my-[10px]">Firstname</span>
@@ -115,7 +116,9 @@ const CreateAccount = () => {
                 <button className='bg-[red] h-[40px] w-[100px] rounded-full text-white'>Confirm</button>
                 <button  className='bg-yellow-400 h-[40px] w-[100px] rounded-full text-white' onClick={()=> navigate("/Login")}>Back</button>
                 </div>
+
               </form> 
+              <p className='text-center font-bold text-red-500'>*This page is demo it's fake server username or password just an create can not use.</p>
           </div>
          
         

@@ -28,7 +28,9 @@ const OtherProductInCategory = ({category}:any) => { // รับ props {categor
       };
  
     useEffect(()=>{ // เรียกใช้ fetchCategoryProduct เมื่อ category มีการเปลี่ยนแปลง
-        fetchCategoryProduct()
+      if (category) {
+        fetchCategoryProduct();
+      };  
       },[category]);
 
 
@@ -51,16 +53,20 @@ const OtherProductInCategory = ({category}:any) => { // รับ props {categor
   
         </div>
       })
-    return   <div>
-        
-<div className=" p-[30px]">
+
+    return   (
+
+  <div>
+    <div className=" p-[30px]">
       <h1 className="text-[red]">Other products in category</h1>
       <div className='grid grid-cols-4 justify-items-center mt-[20px]'> 
       {categoryProducts}
       </div>
-</div>    
+    </div>    
+  </div>
+  
+    )
 
-    </div>
 }
 
 export default OtherProductInCategory

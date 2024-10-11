@@ -16,8 +16,8 @@ interface cartItem {
 
 const Cart = () => {
  
- const {cart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct} = useContext(CartContext); // ใช้ useContext เพื่อนำเข้าตัวแปรจากไฟล์ useContext
- const {isLoggedIn} = useContext(UserContext); // ใช้ useContext เพื่อนำเข้าตัวแปรจากไฟล์ user
+ const {cart,removeFromCart,increaseQuantity,decreaseQuantity,clearProduct}:any = useContext(CartContext); // ใช้ useContext เพื่อนำเข้าตัวแปรจากไฟล์ useContext
+ const {isLoggedIn}:any = useContext(UserContext); // ใช้ useContext เพื่อนำเข้าตัวแปรจากไฟล์ user
  const navigate = useNavigate();
 
  const handleOnClick = () =>{  //ฟังก์ชั่นเมื่อ User อยู่ในสถานะ Login และมีการคลิ๊ก จะนำทางไปยังหน้า ConfirmOrderPage หาก User ไม่ได้อยู่ในสถานะ Login จะนำทางไปยังหน้า Login

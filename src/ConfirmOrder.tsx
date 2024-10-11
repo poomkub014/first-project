@@ -1,6 +1,6 @@
 import {useContext, useState} from "react"
 import {CartContext} from "./useContext/useContext"
-import UserContext from "./useContext/user";
+import UserContext, { UserContextType } from "./useContext/user";
 import { useNavigate } from "react-router-dom";
 import order from "./image/order.png"
 import info from "./image/info.png"
@@ -21,14 +21,14 @@ const ConfirmOrder = () => {
  const [editLastName,setEditLastName] = useState<string>(''); 
  const [editAddress,setEditAddress] = useState<string>(''); 
  const [editPhone,setEditPhone] = useState<string>(''); 
- const {cart,setCart} = useContext(CartContext); // ดึงค่ามาจาก useContext ในไฟล์ useContext
+ const {cart,setCart}:any = useContext(CartContext); // ดึงค่ามาจาก useContext ในไฟล์ useContext
  const [edit,setEdit] = useState({ //สร้าง useState เพื่อรับค่าที่ User แก้ไขและนำมาแสดง
    firstName:'',
    lastName:'',
    adress:'',
    phone:'',
  });
- const {user} = useContext(UserContext); //ดึงค่ามาจาก useContext ในไฟล์ user
+ const {user} = useContext(UserContext) as UserContextType; //ดึงค่ามาจาก useContext ในไฟล์ user
  const navigate = useNavigate();
 
  const sumPrice = cart.reduce((acc:number,curr:cartItem) => acc+((curr.price-((curr.price*curr.discountPercentage)/100))*curr.quantity),0);  // ประกาศตัวแปร sumPrice คำนวณผลรวมราคาของสินค้าทั้งหมดที่อยู่ในตะกร้า

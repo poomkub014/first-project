@@ -13,7 +13,7 @@ import ConfirmOrder2 from './ConfirmOrder2.tsx'
 import CreateAccount from './CreateAccount.tsx'
 import OtherProductInCategory from './OtherProductInCategory.tsx'
 import "bootstrap/dist/css/bootstrap.min.css"
-import ProductDetail2 from './ProductDetail2.tsx'
+
 
 import {
   createBrowserRouter,
@@ -69,12 +69,7 @@ const router = createBrowserRouter([
   {
     path:"OtherProductInCategory",
     element: <OtherProductInCategory/>
-  },
-  {
-    path:"ProductDetail2",
-    element:<ProductDetail2/>
   }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
