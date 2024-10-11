@@ -72,8 +72,8 @@ const Home =() => {
         <h2 className='text-center text-[red]'>E-Commerce Website</h2>
       </div>
 
-        <div className=" flex justify-end">
-            {isLoggedIn && <img src= {user.image}  width={40}/>}<p className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</p> 
+        <div className=" flex justify-end items-center">
+            {isLoggedIn && <img src= {user.image}  width={40}/>}<div className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</div> 
 
             {isLoggedIn ?  <Button className='mx-[10px]' onClick={()=>{   
                 window.location.reload();
@@ -81,7 +81,7 @@ const Home =() => {
                 handleLogin(false);
                 setUserId(null);
               }}>Logout</Button> : <Button className='mx-[10px]'><Link to ="/Login">Sign Up</Link></Button> }    
-            <div className = 'cursor-pointer text-center flex' onClick={()=>navigate("/cart")}>
+            <div className = 'cursor-pointer text-center flex items-center' onClick={()=>navigate("/cart")}>
             <img src={cartIcon} width={40} />
             {cart.length > 0 &&<span className='text-lg   text-red-500 font-bold'>{cart.length}</span>}
             </div>       

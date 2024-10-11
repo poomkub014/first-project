@@ -71,8 +71,9 @@ const ListProductByCategory = () => {
   return (
   <div>
 
-      <div className=" flex justify-end pt-[30px] pb-[10px] px-[30px] ">
-            {isLoggedIn && <img src= {user.image}  width={40}/>}<p className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</p> 
+      <div className=" flex justify-end pt-[30px] pb-[10px] px-[30px] items-center">
+      
+            {isLoggedIn && <img src= {user.image}  width={40}/>}<div className='mx-[10px]  text-xl '>{user.firstName} {user.lastName}</div> 
 
             {isLoggedIn ?  <Button className='mx-[10px]' onClick={()=>{   
                 window.location.reload();
@@ -80,10 +81,11 @@ const ListProductByCategory = () => {
                 handleLogin(false);
                 setUserId(null);
               }}>Logout</Button> : <Button className='mx-[10px]'><Link to ="/Login">Sign Up</Link></Button> }    
-            <div className = 'cursor-pointer text-center flex' onClick={()=>navigate("/cart")}>
+            <div className = 'cursor-pointer text-center flex items-center' onClick={()=>navigate("/cart")}>
             <img src={cartIcon} width={40} />
             {cart.length > 0 &&<span className='text-lg   text-red-500 font-bold'>{cart.length}</span>}
             </div>       
+          
           </div>   
 
       <h1 className='text-center'>{category}</h1>
