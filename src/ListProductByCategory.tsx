@@ -59,7 +59,7 @@ const ListProductByCategory = () => {
             <br></br>
             <h1 className='text-lg font-bold'>Price : {product.price}$</h1>
             <div  className='flex justify-end' ><p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product.id,rating:product.rating}})
+            navigate(`/ProductDetail/${product.id}`,{state:{productId:product.id,rating:product.rating}})
           }}  className='text-sky-500 cursor-pointer'>View detail</p> </div>
             <hr></hr>    
             <Button   className='mt-[15px] mx-[5px]' onClick={()=>addToCart(product)}>Add to cart</Button>

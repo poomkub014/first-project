@@ -117,7 +117,7 @@ const Home =() => {
       <Image src={newArrival3?.thumbnail} width={400}/>
       <p  className='text-center font-bold text-4xl'>{newArrival3?.title}</p>
       <p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product[7].id,rating:product[7].rating}})
+            navigate(`/ProductDetail/${product[7].id}`,{state:{productId:product[7].id,rating:product[7].rating}})
           }}  className='text-sky-500 cursor-pointer text-end mr-[10px]'>View detail</p>
     </div>
 
@@ -129,7 +129,7 @@ const Home =() => {
         <Image src={newArrival2?.thumbnail} width={200}/>
         <p  className='text-center font-bold text-2xl'>{newArrival2?.title}</p>
         <p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product[4].id,rating:product[4].rating}})
+            navigate(`/ProductDetail/${product[4].id}`,{state:{productId:product[4].id,rating:product[4].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
       </div>
     
@@ -137,7 +137,7 @@ const Home =() => {
         <Image src={newArrival?.thumbnail} width={200}/>
         <p  className='text-center font-bold text-2xl'>{newArrival?.title}</p>
         <p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product[0].id,rating:product[0].rating}})
+            navigate(`/ProductDetail/${product[0].id}`,{state:{productId:product[0].id,rating:product[0].rating}})
           }}  className='text-sky-500 cursor-pointer mr-[10px]'>View detail</p>
       </div>
     

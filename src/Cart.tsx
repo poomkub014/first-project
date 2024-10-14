@@ -119,9 +119,9 @@ const Cart = () => {
               <div></div>
 
               <div className='m-[20px] flex justify-center'>
-              <button className='bg-sky-500 rounded-full h-[50px] w-[100px] text-white hover:bg-cyan-600 px-[20px]' onClick={handleOnClick}>Confirm</button>
-              <button className='bg-yellow-500 hover:bg-amber-600 h-[50px] rounded-full text-white mx-[30px]  px-[30px]' onClick={()=> navigate(-1)}>Back</button>
-              <button className='bg-red-600 h-[50px] hover:bg-red-800 rounded-full text-white  px-[20px]' onClick={clearProduct}>Clear all product</button>   
+              <button className=' h-[50px] rounded-full  border-2 border-slate-500 px-[20px] hover:font-bold hover:border-black' onClick={handleOnClick}>Confirm</button>
+              <button className=' h-[50px] rounded-full  border-2 border-slate-500 hover:font-bold hover:border-black mx-[30px]  px-[30px]' onClick={()=> navigate(-1)}>Back</button>
+              <button className=' h-[50px] rounded-full  border-2 border-slate-500 hover:font-bold hover:border-black px-[20px]' onClick={clearProduct}>Clear all product</button>   
               </div>
           </div>
       }

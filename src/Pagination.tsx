@@ -48,7 +48,7 @@ const PaginationPage = ({product,explorProduct,setPage,setExplorProduct} : props
           <p className='text-lg font-bold'>Rate : <Rate disabled allowHalf defaultValue={item.rating}/></p>
           <p className='text-lg font-bold'>Price : {item.price}$</p>
           <div  className='flex justify-end' ><p  onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:item.id,rating:item.rating}})
+            navigate(`/ProductDetail/${item.id}`,{state:{productId:item.id,rating:item.rating}})
           }}  className='text-sky-500 cursor-pointer'>View detail</p> </div>
           <hr></hr>
           
@@ -107,7 +107,7 @@ useEffect(()=>{ // เรียกใช้ showRandomProduct ทุกครั
           <div key={product.id} className='mt-[20px]'>
             <h3 style={contentStyle} className=' flex flex-col items-center rounded bg-red-800'><Image src={product.thumbnail} width={300} />
           <p className='cursor-pointer text-xl' onClick={()=>{
-            navigate("/ProductDetail",{state:{productId:product.id,rating:product.rating}})
+            navigate(`/ProductDetail/${product.id}`,{state:{productId:product.id,rating:product.rating}})
           }}> {product.title} </p>
           <p>Price : {product.price}$</p>
          
